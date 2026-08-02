@@ -1,5 +1,8 @@
 export const profile = {
   name: "Ario Keshavarz",
+  firstName: "Mohammad",
+  shortFirstName: "Mo",
+  preferredName: "Ario",
   initials: "AK",
   intro: "I design and build dependable digital products—turning complex problems into clear, useful experiences.",
   location: "Tehran, Iran · Available worldwide",
@@ -128,4 +131,5 @@ export const activities = [
   { title: "Bodybuilding", category: "Training", summary: "Consistency, progressive discipline, and becoming stronger over time." },
   { title: "European classical", category: "Music", summary: "I enjoy its structure, emotional range, and the attention it rewards." },
   { title: "Traditional Persian", category: "Music", summary: "A connection to heritage through expressive melodies and timeless sound." },
+  { title: "Movie soundtracks & themes", category: "Music", summary: "Memorable scores and themes that give stories their emotional architecture." },
 ];
