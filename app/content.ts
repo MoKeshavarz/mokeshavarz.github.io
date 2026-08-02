@@ -53,8 +53,8 @@ export const profile: Profile = {
 
 export const currentFocus: string[] = [
   "Orchestration",
+  "Flow Design",
   "SAP & ABAP",
-  "Design systems",
 ];
 
 export const workExperiences: WorkExperience[] = [
@@ -152,7 +152,7 @@ export const posts: JournalPost[] = [
   // },
 ];
 
-export const skills: string[] = ["Flow design", "Product thinking", "C#", "Sql Server", "Blazor"];
+export const skills: string[] = ["System design", "Product thinking", "C#", "Sql Server", "Blazor"];
 
 export const professionalReading: ProfessionalBook[] = [
   // { title: "The Staff Engineer's Path", author: "Tanya Reilly", status: "Reading now", progress: "68%" },
