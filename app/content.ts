@@ -152,7 +152,7 @@ export const posts: JournalPost[] = [
   // },
 ];
 
-export const skills: string[] = ["System design", "Product thinking", "C#", "Sql Server", "Blazor", "Product thinking"];
+export const skills: string[] = ["System design", "Product thinking", "C#", "Sql Server", "Blazor"];
 
 export const professionalReading: ProfessionalBook[] = [
   // { title: "The Staff Engineer's Path", author: "Tanya Reilly", status: "Reading now", progress: "68%" },
