@@ -1,4 +1,46 @@
-export const profile = {
+export type Profile = {
+  name?: string;
+  firstName?: string;
+  shortFirstName?: string;
+  preferredName?: string;
+  initials?: string;
+  intro?: string;
+  location?: string;
+  email?: string;
+};
+
+export type WorkExperience = {
+  index: string;
+  slug: string;
+  company: string;
+  role: string;
+  period: string;
+  type: string;
+  description: string;
+  tags: string[];
+  tone: string;
+  image: string;
+  overview: string;
+  contribution: string;
+  impact: string;
+  metrics: { value: string; label: string }[];
+};
+
+export type JournalPost = {
+  slug: string;
+  date: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  read: string;
+  body: string[];
+};
+
+export type ProfessionalBook = { title: string; author: string; status: string; progress: string };
+export type FictionBook = { title: string; author: string; status: string; cover: string; series?: string };
+export type Activity = { title: string; category: string; summary: string };
+
+export const profile: Profile = {
   name: "Ario Keshavarz",
   firstName: "Mohammad",
   shortFirstName: "Mo",
@@ -9,12 +51,13 @@ export const profile = {
   email: "hello@ariokeshavarz.dev",
 };
 
-export const currentFocus = [
+export const currentFocus: string[] = [
+  "Orchestration",
   "SAP & ABAP",
   "Design systems",
-] as const;
+];
 
-export const workExperiences = [
+export const workExperiences: WorkExperience[] = [
   // {
   //   index: "01",
   //   slug: "senior-software-engineer",
@@ -63,9 +106,9 @@ export const workExperiences = [
   //   impact: "The shared patterns shortened delivery time while raising baseline accessibility, performance, and consistency across a varied client portfolio.",
   //   metrics: [{ value: "24", label: "sites delivered" }, { value: "95+", label: "performance score" }, { value: "AA", label: "accessibility target" }],
   // },
-] as const;
+];
 
-export const posts = [
+export const posts: JournalPost[] = [
   // {
   //   slug: "quiet-work-behind-reliable-software",
   //   date: "Jul 18, 2026",
@@ -107,24 +150,24 @@ export const posts = [
   //     "The final pass is less about adding polish than removing uncertainty. If a person has to stop and interpret the interface, the product is asking them to do work that the design could have done.",
   //   ],
   // },
-] as const;
+];
 
-export const skills = ["System design", "Product thinking", "C#", "Sql Server", "Blazor", "Product thinking"];
+export const skills: string[] = ["System design", "Product thinking", "C#", "Sql Server", "Blazor", "Product thinking"];
 
-export const professionalReading = [
+export const professionalReading: ProfessionalBook[] = [
   // { title: "The Staff Engineer's Path", author: "Tanya Reilly", status: "Reading now", progress: "68%" },
   // { title: "A Philosophy of Software Design", author: "John Ousterhout", status: "Finished", progress: "100%" },
   // { title: "The Creative Act", author: "Rick Rubin", status: "Up next", progress: "0%" },
 ];
 
-export const fictionReading = [
+export const fictionReading: FictionBook[] = [
   { title: "The Hobbit", author: "J. R. R. Tolkien", status: "Finished", cover: "/books/the-hobbit.jpg" },
   { title: "The Last Wish", author: "Andrzej Sapkowski", status: "Finished", cover: "/books/the-last-wish.jpg" },
   { title: "The Fellowship of the Ring", series: "The Lord of the Rings", author: "J. R. R. Tolkien", status: "Reading now", cover: "/books/the-fellowship-of-the-ring.jpg" },
   { title: "Sword of Destiny", series: "The Witcher", author: "Andrzej Sapkowski", status: "Reading now", cover: "/books/sword-of-destiny.jpg" },
 ];
 
-export const activities = [
+export const activities: Activity[] = [
   { title: "Table tennis", category: "Sport", summary: "Fast rallies, sharp focus, and the satisfaction of precise control." },
   { title: "Football", category: "Sport", summary: "Teamwork, movement, and the competitive energy of the game." },
   { title: "Bodybuilding", category: "Training", summary: "Consistency, progressive discipline, and becoming stronger over time." },
