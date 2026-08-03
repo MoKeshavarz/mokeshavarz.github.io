@@ -1,6 +1,30 @@
 import { Fragment } from "react";
 import { activities, currentFocus, fictionReading, posts, professionalReading, profile, skills, workExperiences } from "./content";
 
+function HeroMandala() {
+  const petals = Array.from({ length: 12 }, (_, index) => index * 30);
+  const rays = Array.from({ length: 24 }, (_, index) => index * 15);
+
+  return (
+    <svg className="hero-mandala" viewBox="0 0 600 600" aria-hidden="true">
+      <g className="mandala-lines" transform="translate(300 300)">
+        <circle r="236" />
+        <circle r="188" />
+        <circle r="108" />
+        {rays.map((angle) => <path key={`ray-${angle}`} d="M0 -108 L0 -236" transform={`rotate(${angle})`} />)}
+        {petals.map((angle) => <g key={`petal-${angle}`} transform={`rotate(${angle})`}>
+          <path d="M0 -22 C-45 -72 -49 -143 0 -188 C49 -143 45 -72 0 -22Z" />
+          <path d="M0 -108 C-31 -137 -35 -177 0 -218 C35 -177 31 -137 0 -108Z" />
+          <path d="M0 -188 C-22 -213 -23 -235 0 -257 C23 -235 22 -213 0 -188Z" />
+          <circle cy="-236" r="7" />
+        </g>)}
+        <circle className="mandala-core" r="61" />
+        <circle className="mandala-core" r="29" />
+      </g>
+    </svg>
+  );
+}
+
 export default function Home() {
   const displayName = profile.name ?? profile.preferredName ?? profile.shortFirstName ?? profile.firstName ?? "Portfolio";
   const initials = profile.initials ?? displayName.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
@@ -21,7 +45,7 @@ export default function Home() {
           {profile.location && <p className="location">{profile.location}</p>}
         </div>
         <div className="hero-visual cutout-hero">
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" />
+          <HeroMandala />
           <img src="/images/hero4-cutout.png" alt="Ario Keshavarz sketching technical plans at his desk" />
         </div>
       </section>

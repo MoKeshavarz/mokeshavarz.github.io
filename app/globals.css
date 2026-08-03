@@ -76,11 +76,17 @@
 
 /* Transparent real-photo cutout integrated with the portfolio motif */
 .cutout-hero{isolation:isolate}
-.cutout-hero:before{inset:13% 3% 4%;background:linear-gradient(145deg,#e9edf9,#dfe6ff)}
+.cutout-hero:before{display:none}
+.hero-mandala{position:absolute;width:min(570px,108%);aspect-ratio:1;z-index:1;overflow:visible;color:#7fa8b9;opacity:.62;filter:drop-shadow(0 16px 30px rgba(4,31,48,.08));transform:translateY(-1%)}
+.mandala-lines{fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.mandala-lines path{opacity:.82}
+.mandala-lines>circle:first-child{stroke-width:2;stroke-dasharray:2 9}
+.mandala-lines>circle:nth-child(2){stroke-width:1.8}
+.mandala-core{fill:rgba(229,241,245,.38);stroke-width:1.8}
 .cutout-hero img{width:min(630px,120%);object-fit:contain;object-position:center bottom;filter:drop-shadow(0 28px 24px rgba(20,33,61,.18))}
 .cutout-hero .note-one{top:12%;left:1%}
 
-@media(max-width:620px){.cutout-hero{min-height:420px}.cutout-hero img{width:118%}.cutout-hero:before{inset:14% 2% 4%}.cutout-hero .note-one{display:block;top:10%;left:0;font-size:9px}}
+@media(max-width:620px){.cutout-hero{min-height:420px}.cutout-hero img{width:118%}.hero-mandala{width:108%;opacity:.52}.cutout-hero .note-one{display:block;top:10%;left:0;font-size:9px}}
 
 .beyond>div:first-child{gap:50px}
 .activities-intro{max-width:380px;color:var(--ink-soft);font-size:15px;line-height:1.65;margin:0}
@@ -150,7 +156,7 @@ body{background-color:var(--paper);background-image:linear-gradient(var(--grid-l
 .book:nth-child(3) .book-mark{background:var(--cyan)}
 .book-status.active{background:#dcf2ea;border-color:#bfe4d6;color:#116b4b}
 .contact-section em{color:#68c9df}
-.cutout-hero:before{background:linear-gradient(145deg,#e5f1f5,#d5e8ef)}
+.cutout-hero:before{display:none}
 .activities-grid article:after{background:#dff0f5}
 .activities-grid .music-card span{color:#69cce0}
 .activities-grid .music-card:after{background:rgba(7,141,168,.28)}
