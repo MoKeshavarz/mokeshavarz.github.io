@@ -1,101 +1,36 @@
-import { Fragment } from "react";
-import { activities, currentFocus, fictionReading, posts, professionalReading, profile, skills, workExperiences } from "./content";
-
-function HeroMandala() {
-  const petals = Array.from({ length: 12 }, (_, index) => index * 30);
-  const rays = Array.from({ length: 24 }, (_, index) => index * 15);
-
-  return (
-    <svg className="hero-mandala" viewBox="0 0 600 600" aria-hidden="true">
-      <g className="mandala-lines" transform="translate(300 300)">
-        <circle r="236" />
-        <circle r="188" />
-        <circle r="108" />
-        {rays.map((angle) => <path key={`ray-${angle}`} d="M0 -108 L0 -236" transform={`rotate(${angle})`} />)}
-        {petals.map((angle) => <g key={`petal-${angle}`} transform={`rotate(${angle})`}>
-          <path d="M0 -22 C-45 -72 -49 -143 0 -188 C49 -143 45 -72 0 -22Z" />
-          <path d="M0 -108 C-31 -137 -35 -177 0 -218 C35 -177 31 -137 0 -108Z" />
-          <path d="M0 -188 C-22 -213 -23 -235 0 -257 C23 -235 22 -213 0 -188Z" />
-          <circle cy="-236" r="7" />
-        </g>)}
-        <circle className="mandala-core" r="61" />
-        <circle className="mandala-core" r="29" />
-      </g>
-    </svg>
-  );
-}
+import Link from "next/link";
+import { books, capabilities, experiencePlaceholder, interests, profile, projects, writing } from "./content";
+import { BookCard, ContactBand, Footer, GithubSection, Header, OrchestrationVisual, PlaceholderBanner, ProjectCard, SectionHeading, WritingCard } from "./components";
 
 export default function Home() {
-  const displayName = profile.name ?? profile.preferredName ?? profile.shortFirstName ?? profile.firstName ?? "Portfolio";
-  const initials = profile.initials ?? displayName.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
-  const hasReading = professionalReading.length > 0 || fictionReading.length > 0;
-  return (
-    <main>
-      <header className="site-header shell">
-        <a className="brand" href="#top" aria-label="Back to top"><span className="brand-mark">{initials}</span><span>{displayName}</span></a>
-        <nav aria-label="Main navigation">{workExperiences.length > 0 && <a href="/experience">Experience</a>}{posts.length > 0 && <a href="/journal">Journal</a>}{hasReading && <a href="#reading">Reading</a>}</nav>
-        {profile.email && <a className="header-cta" href={`mailto:${profile.email}`}>Let&apos;s talk <span aria-hidden="true">↗</span></a>}
-      </header>
-
-      <section className="hero shell" id="top">
-        <div className="hero-copy">
-          <h1>I make complex things <code className="code-accent"><span className="code-keyword">return</span> <span className="code-string">&quot;simple&quot;</span><span className="code-punctuation">;</span></code></h1>
-          {profile.intro && <p className="hero-intro">{profile.intro}</p>}
-          {(workExperiences.length > 0 || profile.email) && <div className="hero-actions">{workExperiences.length > 0 && <a className="button primary" href="/experience">Explore my experience <span>→</span></a>}{profile.email && <a className="text-link" href={`mailto:${profile.email}`}>Send an email <span>↗</span></a>}</div>}
-          {profile.location && <p className="location">{profile.location}</p>}
-        </div>
-        <div className="hero-visual cutout-hero">
-          <HeroMandala />
-          <img src="/images/hero4-cutout.png" alt="Ario Keshavarz sketching technical plans at his desk" />
-        </div>
+  const currentlyReading = books.filter((book) => book.readingStatus === "Reading").slice(0, 2);
+  return <>
+    <Header />
+    <main id="main">
+      <section className="hero container">
+        <div className="hero-copy"><p className="eyebrow"><span className="signal-dot" /> The curious orchestrator</p><h1>Software engineer connecting technologies, solving meaningful problems, and sharing what I learn along the way.</h1><p>{profile.introduction}</p><div className="hero-actions"><Link className="button button-primary" href="/projects">Explore my work <span>↗</span></Link><Link className="button button-secondary" href="/writing">Read my notes</Link><Link className="text-link" href="/library">View my library <span>→</span></Link></div><p className="hero-location">{profile.location}</p></div>
+        <OrchestrationVisual />
       </section>
 
-      {currentFocus.length > 0 && <section className="trust-strip"><div className="shell trust-inner"><p>// CURRENT_FOCUS</p>{currentFocus.map((focus, index) => <Fragment key={focus}><span>{focus}</span>{index < currentFocus.length - 1 && <i />}</Fragment>)}</div></section>}
+      <div className="signal-strip"><div className="container"><span>SYSTEM RECORD / 2026</span><p>Understand</p><i /> <p>Connect</p><i /> <p>Build</p><i /> <p>Learn</p></div></div>
 
-      {workExperiences.length > 0 && <section className="section shell" id="work">
-        <div className="section-heading"><div><p className="kicker">Selected experience</p><h2>Roles that shaped how I work.</h2></div><p>Each role has its own page with responsibilities, contributions, outcomes, and the tools I used.</p></div>
-        <div className="project-grid">{workExperiences.map((item) => <article className={`project-card ${item.tone}`} key={item.slug}>
-          <a className="project-art" href={`/experience/${item.slug}`} aria-label={`View ${item.role} experience`}><span className="project-index">{item.index}</span><img src={item.image} alt="" /></a>
-          <div className="project-body"><p className="project-type">{item.period} · {item.company}</p><h3>{item.role}</h3><p>{item.description}</p><div className="tag-row">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a href={`/experience/${item.slug}`}>View experience <span>↗</span></a></div>
-        </article>)}</div>
-      </section>}
+      <section className="section container" id="projects"><SectionHeading label="Selected projects" title="The connections matter as much as the components." text="Case-study structures centered on the problem, engineering decision, systems connected, outcome, and learning." link={{ href: "/projects", label: "View all projects" }} /><PlaceholderBanner>Project entries are clearly marked templates. Replace them with real work, verified outcomes, and repository links.</PlaceholderBanner><div className="project-grid">{projects.slice(0, 2).map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section>
 
-      {workExperiences.length > 0 && <section className="section experience-section" id="experience"><div className="shell experience-grid">
-        <div className="experience-intro"><p className="kicker">Experience</p><h2>Building, learning, and helping teams move forward.</h2><p>I care about the whole product—not only the code. That means asking better questions, making sensible tradeoffs, and leaving systems clearer than I found them.</p>{profile.email && <a className="text-link" href={`mailto:${profile.email}?subject=Resume request`}>Request full résumé <span>↗</span></a>}</div>
-        <div className="timeline">{workExperiences.map((item) => <article className="timeline-item" key={item.slug}><span className="timeline-dot" /><p className="period">{item.period}</p><h3><a href={`/experience/${item.slug}`}>{item.role}</a></h3><p className="company">{item.company}</p><p>{item.description}</p><a className="timeline-link" href={`/experience/${item.slug}`}>Read about this role →</a></article>)}</div>
-      </div></section>}
+      <section className="section section-tinted"><div className="container"><SectionHeading label="Recently published" title="Notes from building, reading, and reconsidering." text="Technical articles, case studies, and learning notes share one connected knowledge record." link={{ href: "/writing", label: "Explore all writing" }} /><div className="writing-grid">{writing.slice(0, 3).map((item) => <WritingCard item={item} key={item.slug} />)}</div></div></section>
 
-      {skills.length > 0 && <section className="section shell skills-section"><div className="section-heading compact"><div><p className="kicker">Toolkit</p><h2>How I help.</h2></div><p>Broad enough to see the system, focused enough to sweat the details.</p></div><div className="skill-cloud">{skills.map((skill, index) => <span key={`${skill}-${index}`}><b>{String(index + 1).padStart(2, "0")}</b>{skill}</span>)}</div></section>}
+      <section className="section container"><SectionHeading label="Currently reading" title="Ideas in progress, not trophies on a shelf." text="A reading record that connects technical and non-technical books to work, questions, and practice." link={{ href: "/library", label: "Visit the library" }} /><div className="book-feature-grid">{currentlyReading.map((book) => <BookCard book={book} key={book.slug} />)}</div></section>
 
-      {posts.length > 0 && <section className="section journal-section" id="journal"><div className="shell">
-        <div className="section-heading"><div><p className="kicker">Field notes</p><h2>Writing from the work.</h2></div><p>Ideas, lessons, and useful details collected while building software and working with people.</p></div>
-        <div className="post-list">{posts.map((post, index) => <article className="post" key={post.title}><p className="post-number">0{index + 1}</p><div><p className="post-meta">{post.category} <span>·</span> {post.date}</p><h3>{post.title}</h3><p>{post.excerpt}</p></div><a href={`/journal/${post.slug}`} aria-label={`Read ${post.title}`}><span>{post.read}</span><b>↗</b></a></article>)}</div>
-        <p className="content-note">New essays can be added by duplicating an item in the <code>posts</code> list at the top of this page.</p>
-      </div></section>}
+      <section className="section approach-section"><div className="container"><SectionHeading label="Engineering approach" title="Understand the problem. Map the relationships. Build the smallest coherent system." /><ol className="approach-list"><li><span>01</span><div><h3>Understand</h3><p>Clarify the problem, constraints, people, and evidence before choosing a solution.</p></div></li><li><span>02</span><div><h3>Connect</h3><p>Make boundaries, responsibilities, flows, and failure states visible.</p></div></li><li><span>03</span><div><h3>Build</h3><p>Deliver a useful slice, test assumptions, and keep the system understandable.</p></div></li><li><span>04</span><div><h3>Improve</h3><p>Measure what matters, document trade-offs, and carry the learning forward.</p></div></li></ol></div></section>
 
-      {hasReading && <section className="section shell" id="reading">
-        <div className="reading-layout">
-          <div className="reading-copy"><p className="kicker">Reading shelf</p><h2>Technical ideas and imagined worlds.</h2><p>A public trail of what I&apos;m learning professionally and the fiction I read for curiosity, atmosphere, and story.</p><figure className="reading-portrait"><span aria-hidden="true">Notes become practice.</span><img src="/images/reading-cutout.png" alt="Ario reading Clean Code" /></figure></div>
-          {professionalReading.length > 0 && <div><p className="shelf-label">Professional reading</p><div className="book-list">{professionalReading.map((book) => <article className="book" key={book.title}><div className="book-mark" aria-hidden="true">{book.title.charAt(0)}</div><div className="book-info"><h3>{book.title}</h3><p>{book.author}</p><div className="progress"><span style={{ width: book.progress }} /></div></div><span className={`book-status ${book.status === "Reading now" ? "active" : book.status === "Finished" ? "finished" : ""}`}>{book.status}</span></article>)}</div></div>}
-        </div>
-        {fictionReading.length > 0 && <div className="fiction-shelf">
-          <div className="fiction-heading"><div><p className="shelf-label">Fiction · Non-technical</p><h3>Fantasy on my shelf</h3></div><p>Two journeys completed. Two currently underway.</p></div>
-          <div className="fiction-grid">{fictionReading.map((book) => <article className="fiction-book" key={book.title}>
-            <div className="cover-wrap"><img src={book.cover} alt={`Cover of ${book.title} by ${book.author}`} /><span className={`book-status ${book.status === "Reading now" ? "active" : "finished"}`}>{book.status}</span></div>
-            <div>{book.series && <p className="book-series">{book.series}</p>}<h4>{book.title}</h4><p>{book.author}</p></div>
-          </article>)}</div>
-          <p className="cover-credit">Cover images via Open Library.</p>
-        </div>}
-      </section>}
+      <section className="section container"><SectionHeading label="Technical capabilities" title="Broad enough to see the system. Focused enough to care about the details." /><div className="capability-grid">{capabilities.map((item) => <article key={item.number}><span>{item.number}</span><h3>{item.title}</h3><p>{item.detail}</p></article>)}</div></section>
 
-      {activities.length > 0 && <section className="section shell beyond" id="activities">
-        <div><div><p className="kicker">Activities & music</p><h2>Energy, discipline, and a good soundtrack.</h2></div><p className="activities-intro">What keeps me moving, focused, and connected beyond software.</p></div>
-        <div className="interest-grid activities-grid">{activities.map((activity, index) => <article className={activity.category === "Music" ? `music-card ${activity.title === "Traditional Persian" ? "persian" : ""}` : "sport-card"} key={activity.title}><span>{String(index + 1).padStart(2, "0")} · {activity.category}</span><h3>{activity.title}</h3><p>{activity.summary}</p></article>)}</div>
-      </section>}
+      <section className="section section-tinted"><div className="container experience-preview"><div><p className="eyebrow">Experience</p><h2>Evidence over inflated claims.</h2><p>{experiencePlaceholder.text}</p><Link className="button button-secondary" href="/experience">View experience record</Link></div><div className="experience-empty"><span>STATUS / DOCUMENTING</span><h3>{experiencePlaceholder.title}</h3><p>Roles, responsibilities, outcomes, and systems will appear here when verified details are available.</p></div></div></section>
 
-      {profile.email && <section className="contact-section shell" id="contact"><p className="kicker">Have a thoughtful project?</p><h2>Let&apos;s make something<br /><em>worth using.</em></h2><a className="button primary light" href={`mailto:${profile.email}`}>Start a conversation <span>↗</span></a><p>{profile.email}</p></section>}
+      <section className="section container"><SectionHeading label="Beyond engineering" title="Discipline, rhythm, and the practice of paying attention." text="Sports teach me consistency and resilience. Music reminds me that structure and creativity can work together." /><div className="interest-grid">{interests.map((item, index) => <article key={item.title}><span>0{index + 1} / {item.type}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
 
-      <footer className="footer shell"><p>© 2026 {displayName}. Built with curiosity and care. <span className="ai-powered">AI Powered</span></p><div><a href="#top">Back to top ↑</a><a href="https://github.com/MoKeshavarz" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></footer>
+      <GithubSection />
+      <ContactBand />
     </main>
-  );
+    <Footer />
+  </>;
 }

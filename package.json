@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ignore-pattern out --ignore-pattern .next"
+    "lint": "eslint app --ignore-pattern .next --ignore-pattern out --ignore-pattern dist --ignore-pattern work --ignore-pattern .next-stale"
   },
   "dependencies": {
     "next": "16.2.6",

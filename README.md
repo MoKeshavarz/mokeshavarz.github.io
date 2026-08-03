@@ -1,20 +1,27 @@
-# Ario Keshavarz — Portfolio
+# Ario Keshavarz — The Curious Orchestrator
 
-A static software-engineering portfolio published at [mokeshavarz.github.io](https://mokeshavarz.github.io).
+A connected personal portfolio for projects, engineering decisions, writing, books, learning notes, experience, and interests beyond software.
 
-## Update the content
+## Content
 
-All editable portfolio content lives in `app/content.ts`: profile details, experience, journal entries, books, skills, and activities. Edit that file in GitHub and commit the change; the deployment workflow republishes the site automatically.
+The portfolio deliberately avoids invented work or achievements. Replace the clearly marked project, writing, technical-book, and experience placeholders in `app/content.ts` with verified information. Existing reading and profile details are kept separate from demonstration entries through explicit labels.
 
-Images live in `public/`. Use root-relative paths such as `/images/hero4-cutout.png` in the content file.
+The main content records are:
 
-## Run locally
+- `projects` — problem, responsibility, engineering decision, connected systems, outcome, and lesson
+- `writing` — articles, case studies, book summaries, and evolving learning notes
+- `books` — technical/non-technical type, reading status, progress, and personal notes
+- `capabilities`, `interests`, and `profile` — supporting personal information
+
+Images live in `public/`. Social metadata uses `public/og.png`.
+
+## Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Publish
+Run `npm run lint` and `npm run build` before publishing. The build is a static export suitable for GitHub Pages, with a sitemap, robots file, and RSS feeds generated from the content records.
 
-The workflow in `.github/workflows/deploy-pages.yml` builds the static site and deploys the `out/` directory to GitHub Pages after every push to `main`.
+The GitHub Pages workflow republishes the `out/` directory after changes reach `main`.

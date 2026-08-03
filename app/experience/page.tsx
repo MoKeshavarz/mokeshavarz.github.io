@@ -1,14 +1,7 @@
-import { workExperiences } from "../content";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { experiencePlaceholder } from "../content";
+import { Footer, Header, PageIntro, PlaceholderBanner } from "../components";
 
-export default function ExperiencePage() {
-  return <main className="listing-page">
-    <header className="detail-header shell"><a className="brand" href="/"><span className="brand-mark">AK</span><span>Ario Keshavarz</span></a><nav aria-label="Section navigation"><a href="/experience">Experience</a><a href="/journal">Journal</a></nav><a className="detail-back" href="/">← Home</a></header>
-    <section className="listing-hero shell"><p className="kicker">Experience</p><h1>The places where I learned by building.</h1><p>A closer look at my roles, responsibilities, contributions, and the outcomes created with each team.</p></section>
-    <section className="experience-list shell">{workExperiences.map((item) => <a className="experience-list-item" href={`/experience/${item.slug}`} key={item.slug}>
-      <div className="experience-list-image"><img src={item.image} alt="" /></div>
-      <div><p className="project-type">{item.period} · {item.company}</p><h2>{item.role}</h2><p>{item.description}</p><div className="tag-row">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div>
-      <span className="listing-arrow">↗</span>
-    </a>)}</section>
-    <footer className="detail-footer shell"><p>© 2026 Ario Keshavarz · <span className="ai-powered">AI Powered</span></p><a href="mailto:hello@ariokeshavarz.dev">Let&apos;s talk ↗</a></footer>
-  </main>;
-}
+export const metadata: Metadata = { title: "Experience · Ario Keshavarz", description: "A transparent experience record focused on responsibilities, systems, decisions, and verified outcomes." };
+export default function ExperiencePage() { return <><Header /><main id="main"><PageIntro label="Experience / Record" title="Work history belongs here when the details are ready." text="This page is intentionally honest about missing information. It will document real roles, responsibilities, team context, systems, and verified outcomes without sample achievements." /><section className="page-section container"><PlaceholderBanner>Experience content is not yet configured. Add only verified dates, companies, responsibilities, technologies, and outcomes.</PlaceholderBanner><div className="experience-documenting"><div><span>00</span><p>Current state</p></div><div><h2>{experiencePlaceholder.title}</h2><p>{experiencePlaceholder.text}</p><ol><li><span>01</span>Role and organization</li><li><span>02</span>Context and responsibilities</li><li><span>03</span>Systems and services connected</li><li><span>04</span>Verified outcomes and trade-offs</li><li><span>05</span>Lessons carried forward</li></ol><Link className="button button-primary" href="/contact">Ask about my experience <span>↗</span></Link></div></div></section></main><Footer /></>; }
