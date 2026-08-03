@@ -1,4 +1,4 @@
-# Ario Keshavarz — The Curious Orchestrator
+# Mohamad Keshavarz — The Curious Orchestrator
 
 A connected personal portfolio for projects, engineering decisions, writing, books, learning notes, experience, and interests beyond software.
 

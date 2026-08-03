@@ -3,7 +3,7 @@ import Image from "next/image";
 import { books, formatDate, profile, projects, type Book, type Project, type Writing } from "./content";
 import { CopyEmail, GithubActivity, SiteHeader } from "./client";
 
-export function Header() { return <SiteHeader name={profile.name} initials={profile.initials} github={profile.github} />; }
+export function Header() { return <SiteHeader name={profile.displayName} initials={profile.initials} github={profile.github} />; }
 
 export function Footer() {
   return (
@@ -26,14 +26,8 @@ export function SectionHeading({ label, title, text, link }: { label: string; ti
   return <div className="section-heading"><div><p className="eyebrow">{label}</p><h2>{title}</h2></div><div>{text && <p>{text}</p>}{link && <Link className="text-link" href={link.href}>{link.label} <span>↗</span></Link>}</div></div>;
 }
 
-export function OrchestrationVisual() {
-  const nodes = [
-    { label: "LEARN", detail: "Question", className: "node-learn" },
-    { label: "CONNECT", detail: "System", className: "node-connect" },
-    { label: "BUILD", detail: "Product", className: "node-build" },
-    { label: "SHARE", detail: "Record", className: "node-share" },
-  ];
-  return <div className="orchestration" aria-label="A flow from learning to connecting, building, and sharing"><div className="flow-line" aria-hidden="true" />{nodes.map((node, index) => <div className={`flow-node ${node.className}`} key={node.label}><span className="node-pulse" /><small>0{index + 1}</small><strong>{node.label}</strong><em>{node.detail}</em></div>)}<p className="visual-caption"><span>FLOW / 01</span> Ideas become useful when the connections are clear.</p></div>;
+export function HeroPortrait() {
+  return <div className="hero-portrait-stage"><div className="portrait-grid" aria-hidden="true" /><div className="portrait-path" aria-hidden="true"><i /><i /><i /></div><div className="portrait-labels" aria-hidden="true"><span className="portrait-label label-learn">01 / Learn</span><span className="portrait-label label-design">02 / Design</span><span className="portrait-label label-integrate">03 / Integrate</span><span className="portrait-label label-build">04 / Build</span></div><picture className="hero-portrait-picture"><source media="(max-width: 620px)" srcSet="/images/hero-portrait-mobile.webp" /><img src="/images/hero-portrait.webp" width="1122" height="1256" alt="Mohamad Keshavarz sketching a system design at his desk" fetchPriority="high" decoding="async" /></picture><p className="portrait-caption"><span>WORKFLOW / 01</span> Turning questions into connected, useful systems.</p></div>;
 }
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {

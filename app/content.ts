@@ -1,14 +1,16 @@
 export const profile = {
-  name: "Ario Keshavarz",
-  initials: "AK",
+  name: "Mohamad Keshavarz",
+  displayName: "Mo",
+  nickname: "Ario",
+  initials: "MK",
   role: "Software engineer",
   location: "Tehran, Iran · Available worldwide",
-  email: "hello@ariokeshavarz.dev",
+  email: "mokeshavarz.programmer@gmail.com",
   github: "https://github.com/MoKeshavarz",
   githubUsername: "MoKeshavarz",
   linkedin: "",
   introduction:
-    "I build web applications by bringing systems, services, and ideas together. I document my projects, engineering decisions, reading journey, and the lessons I discover through technology, books, sports, and music.",
+    "I design and integrate web applications across interfaces, services, data, and external APIs. This is where I share the projects, books, case studies, and notes shaping my work.",
 };
 
 export type Project = {

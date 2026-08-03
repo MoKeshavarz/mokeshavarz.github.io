@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { books, capabilities, experiencePlaceholder, interests, profile, projects, writing } from "./content";
-import { BookCard, ContactBand, Footer, GithubSection, Header, OrchestrationVisual, PlaceholderBanner, ProjectCard, SectionHeading, WritingCard } from "./components";
+import { BookCard, ContactBand, Footer, GithubSection, Header, HeroPortrait, PlaceholderBanner, ProjectCard, SectionHeading, WritingCard } from "./components";
 
 export default function Home() {
   const currentlyReading = books.filter((book) => book.readingStatus === "Reading").slice(0, 2);
@@ -8,8 +8,8 @@ export default function Home() {
     <Header />
     <main id="main">
       <section className="hero container">
-        <div className="hero-copy"><p className="eyebrow"><span className="signal-dot" /> The curious orchestrator</p><h1>Software engineer connecting technologies, solving meaningful problems, and sharing what I learn along the way.</h1><p>{profile.introduction}</p><div className="hero-actions"><Link className="button button-primary" href="/projects">Explore my work <span>↗</span></Link><Link className="button button-secondary" href="/writing">Read my notes</Link><Link className="text-link" href="/library">View my library <span>→</span></Link></div><p className="hero-location">{profile.location}</p></div>
-        <OrchestrationVisual />
+        <div className="hero-copy"><p className="eyebrow"><span className="signal-dot" /> The Curious Orchestrator</p><h1>Software engineer building connected systems—and documenting what I learn.</h1><p>{profile.introduction}</p><div className="hero-actions"><Link className="button button-primary" href="/projects">View projects <span>↗</span></Link><Link className="button button-secondary" href="/writing">Explore notes</Link><Link className="text-link" href="/library">Browse my library <span>→</span></Link></div><p className="hero-location">Hi, I&apos;m {profile.displayName}. · {profile.location}</p></div>
+        <HeroPortrait />
       </section>
 
       <div className="signal-strip"><div className="container"><span>SYSTEM RECORD / 2026</span><p>Understand</p><i /> <p>Connect</p><i /> <p>Build</p><i /> <p>Learn</p></div></div>
