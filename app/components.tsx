@@ -26,51 +26,53 @@ export function SectionHeading({ label, title, text, link }: { label: string; ti
   return <div className="section-heading"><div><p className="eyebrow">{label}</p><h2>{title}</h2></div><div>{text && <p>{text}</p>}{link && <Link className="text-link" href={link.href}>{link.label} <span>↗</span></Link>}</div></div>;
 }
 
-function OrchestrationHalo() {
-  return <svg className="orchestration-halo" viewBox="0 0 640 640" aria-hidden="true" focusable="false">
-    <g className="halo-primary">
-      <circle className="halo-ring halo-ring-inner" cx="320" cy="320" r="158" />
-      <circle className="halo-ring halo-ring-middle" cx="320" cy="320" r="222" />
-      <circle className="halo-ring halo-ring-outer" cx="320" cy="320" r="284" />
-      <path className="halo-dependency" d="M320 162V104H410V48" />
-      <path className="halo-dependency" d="M478 320H544V238H606" />
-      <path className="halo-dependency" d="M432 432L500 500H588" />
-      <path className="halo-dependency" d="M208 432L140 500H52" />
-      <path className="halo-dependency" d="M162 320H94V230H36" />
-      <path className="halo-dependency" d="M208 208L142 142H64" />
-      <path className="halo-bridge halo-detail" d="M320 98H238V54M542 320V402H596M320 542H404V596M98 320V402H44" />
-    </g>
-    <g className="halo-modules">
-      <rect x="307" y="89" width="26" height="18" />
-      <rect x="398" y="39" width="24" height="18" />
-      <rect x="533" y="307" width="20" height="26" />
-      <rect x="594" y="226" width="22" height="24" />
-      <rect x="488" y="488" width="24" height="24" />
-      <rect x="576" y="488" width="25" height="24" />
-      <rect x="128" y="488" width="24" height="24" />
-      <rect x="39" y="488" width="25" height="24" />
-      <rect x="83" y="307" width="22" height="26" />
-      <rect x="24" y="218" width="24" height="24" />
-      <rect x="130" y="130" width="24" height="24" />
-      <rect x="50" y="130" width="26" height="24" />
-      <rect className="halo-detail" x="226" y="43" width="24" height="22" />
-      <rect className="halo-detail" x="584" y="390" width="24" height="22" />
-      <rect className="halo-detail" x="392" y="584" width="24" height="22" />
-      <rect className="halo-detail" x="32" y="390" width="24" height="22" />
-    </g>
-    <g className="halo-junctions">
-      <circle cx="320" cy="162" r="5" /><circle cx="478" cy="320" r="5" /><circle cx="432" cy="432" r="5" /><circle cx="208" cy="432" r="5" /><circle cx="162" cy="320" r="5" /><circle cx="208" cy="208" r="5" />
-    </g>
-    <g className="halo-active">
-      <path className="halo-signal" d="M478 320H544V238H606" />
-      <path className="halo-signal halo-signal-delayed" d="M208 432L140 500H52" />
-      <circle cx="544" cy="238" r="6" /><circle cx="140" cy="500" r="6" />
+function ArchitecturalMandala() {
+  return <svg className="architectural-mandala" viewBox="0 0 640 640" aria-hidden="true" focusable="false">
+    <defs>
+      <mask id="mandala-portrait-quiet">
+        <rect width="640" height="640" fill="white" />
+        <ellipse cx="410" cy="174" rx="128" ry="118" fill="black" opacity=".92" />
+      </mask>
+    </defs>
+    <g mask="url(#mandala-portrait-quiet)">
+      <g className="mandala-construction">
+        <path d="M302 72V150M302 558V626M35 354H97M507 354H624" />
+        <path className="mandala-tablet-detail" d="M112 164L164 216M440 492L496 548M118 548L170 496" />
+        <path d="M76 354A226 226 0 0 1 114 228M454 190A226 226 0 0 1 528 354" />
+      </g>
+      <g className="mandala-layers">
+        <path className="mandala-layer mandala-layer-inner" d="M302 222A132 132 0 0 1 427 312M432 354A130 130 0 0 1 365 468M257 478A132 132 0 0 1 170 372M178 306A132 132 0 0 1 258 230" />
+        <path className="mandala-layer mandala-layer-middle" d="M302 149A205 205 0 0 1 475 244M498 326A205 205 0 0 1 439 522M358 551A205 205 0 0 1 148 474M101 389A205 205 0 0 1 170 196" />
+        <path className="mandala-layer mandala-layer-outer" d="M302 82A272 272 0 0 1 493 160M552 254A272 272 0 0 1 544 476M476 554A272 272 0 0 1 242 619M138 570A272 272 0 0 1 31 390M43 279A272 272 0 0 1 129 154" />
+      </g>
+      <g className="mandala-modules">
+        <rect x="286" y="136" width="32" height="24" rx="5" />
+        <rect x="461" y="231" width="34" height="25" rx="5" />
+        <rect x="426" y="509" width="34" height="25" rx="5" />
+        <rect x="286" y="538" width="32" height="24" rx="5" />
+        <rect className="mandala-mobile-detail" x="133" y="461" width="34" height="25" rx="5" />
+        <rect className="mandala-mobile-detail" x="151" y="183" width="34" height="25" rx="5" />
+      </g>
+      <g className="mandala-connections">
+        <path d="M302 222V160M427 312L461 252M365 468L432 509M257 478L302 538M170 372L150 461M178 306L164 208" />
+        <path className="mandala-tablet-detail" d="M302 136V82M495 243L552 254M460 522L476 554M286 550L242 619M133 474L138 570M151 196L129 154" />
+        <circle cx="302" cy="222" r="4" /><circle cx="427" cy="312" r="4" /><circle cx="365" cy="468" r="4" /><circle cx="257" cy="478" r="4" /><circle className="mandala-mobile-detail" cx="170" cy="372" r="4" /><circle className="mandala-mobile-detail" cx="178" cy="306" r="4" />
+      </g>
+      <g className="mandala-active-route">
+        <path className="mandala-route" d="M427 312C451 295 458 278 478 252C500 223 522 204 552 198" />
+        <circle cx="478" cy="252" r="5" />
+      </g>
+      <g className="mandala-curiosity-path">
+        <path d="M129 154C96 128 78 96 82 61C86 30 108 14 140 20" />
+        <circle cx="82" cy="61" r="5" />
+        <path className="mandala-tablet-detail" d="M544 476C572 491 590 512 604 542" />
+      </g>
     </g>
   </svg>;
 }
 
 export function HeroPortrait() {
-  return <div className="hero-portrait-stage"><OrchestrationHalo /><div className="portrait-labels" aria-hidden="true"><span className="portrait-label label-learn">01 / Learn</span><span className="portrait-label label-design">02 / Design</span><span className="portrait-label label-integrate">03 / Integrate</span><span className="portrait-label label-build">04 / Build</span></div><picture className="hero-portrait-picture"><source media="(max-width: 620px)" srcSet="/images/hero-portrait-mobile.webp" /><img src="/images/hero-portrait.webp" width="1122" height="1256" alt="Mohamad Keshavarz sketching a system design at his desk" fetchPriority="high" decoding="async" /></picture><p className="portrait-caption"><span>WORKFLOW / 01</span> Turning questions into connected, useful systems.</p></div>;
+  return <div className="hero-portrait-stage"><ArchitecturalMandala /><div className="portrait-labels" aria-hidden="true"><span className="portrait-label label-learn">01 / Learn</span><span className="portrait-label label-design">02 / Design</span><span className="portrait-label label-integrate">03 / Integrate</span><span className="portrait-label label-build">04 / Build</span></div><picture className="hero-portrait-picture"><source media="(max-width: 620px)" srcSet="/images/hero-portrait-mobile.webp" /><img src="/images/hero-portrait.webp" width="1122" height="1256" alt="Mohamad Keshavarz sketching a system design at his desk" fetchPriority="high" decoding="async" /></picture><p className="portrait-caption"><span>WORKFLOW / 01</span> Turning questions into connected, useful systems.</p></div>;
 }
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
