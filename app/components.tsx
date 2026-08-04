@@ -26,53 +26,21 @@ export function SectionHeading({ label, title, text, link }: { label: string; ti
   return <div className="section-heading"><div><p className="eyebrow">{label}</p><h2>{title}</h2></div><div>{text && <p>{text}</p>}{link && <Link className="text-link" href={link.href}>{link.label} <span>↗</span></Link>}</div></div>;
 }
 
-function ArchitecturalMandala() {
-  return <svg className="architectural-mandala" viewBox="0 0 640 640" aria-hidden="true" focusable="false">
-    <defs>
-      <mask id="mandala-portrait-quiet">
-        <rect width="640" height="640" fill="white" />
-        <ellipse cx="410" cy="174" rx="128" ry="118" fill="black" opacity=".92" />
-      </mask>
-    </defs>
-    <g mask="url(#mandala-portrait-quiet)">
-      <g className="mandala-construction">
-        <path d="M302 72V150M302 558V626M35 354H97M507 354H624" />
-        <path className="mandala-tablet-detail" d="M112 164L164 216M440 492L496 548M118 548L170 496" />
-        <path d="M76 354A226 226 0 0 1 114 228M454 190A226 226 0 0 1 528 354" />
-      </g>
-      <g className="mandala-layers">
-        <path className="mandala-layer mandala-layer-inner" d="M302 222A132 132 0 0 1 427 312M432 354A130 130 0 0 1 365 468M257 478A132 132 0 0 1 170 372M178 306A132 132 0 0 1 258 230" />
-        <path className="mandala-layer mandala-layer-middle" d="M302 149A205 205 0 0 1 475 244M498 326A205 205 0 0 1 439 522M358 551A205 205 0 0 1 148 474M101 389A205 205 0 0 1 170 196" />
-        <path className="mandala-layer mandala-layer-outer" d="M302 82A272 272 0 0 1 493 160M552 254A272 272 0 0 1 544 476M476 554A272 272 0 0 1 242 619M138 570A272 272 0 0 1 31 390M43 279A272 272 0 0 1 129 154" />
-      </g>
-      <g className="mandala-modules">
-        <rect x="286" y="136" width="32" height="24" rx="5" />
-        <rect x="461" y="231" width="34" height="25" rx="5" />
-        <rect x="426" y="509" width="34" height="25" rx="5" />
-        <rect x="286" y="538" width="32" height="24" rx="5" />
-        <rect className="mandala-mobile-detail" x="133" y="461" width="34" height="25" rx="5" />
-        <rect className="mandala-mobile-detail" x="151" y="183" width="34" height="25" rx="5" />
-      </g>
-      <g className="mandala-connections">
-        <path d="M302 222V160M427 312L461 252M365 468L432 509M257 478L302 538M170 372L150 461M178 306L164 208" />
-        <path className="mandala-tablet-detail" d="M302 136V82M495 243L552 254M460 522L476 554M286 550L242 619M133 474L138 570M151 196L129 154" />
-        <circle cx="302" cy="222" r="4" /><circle cx="427" cy="312" r="4" /><circle cx="365" cy="468" r="4" /><circle cx="257" cy="478" r="4" /><circle className="mandala-mobile-detail" cx="170" cy="372" r="4" /><circle className="mandala-mobile-detail" cx="178" cy="306" r="4" />
-      </g>
-      <g className="mandala-active-route">
-        <path className="mandala-route" d="M427 312C451 295 458 278 478 252C500 223 522 204 552 198" />
-        <circle cx="478" cy="252" r="5" />
-      </g>
-      <g className="mandala-curiosity-path">
-        <path d="M129 154C96 128 78 96 82 61C86 30 108 14 140 20" />
-        <circle cx="82" cy="61" r="5" />
-        <path className="mandala-tablet-detail" d="M544 476C572 491 590 512 604 542" />
-      </g>
-    </g>
-  </svg>;
+function HeroSystemField() {
+  return <div className="hero-system-field" aria-hidden="true">
+    <span className="system-arc system-arc-outer" />
+    <span className="system-arc system-arc-inner" />
+    <span className="system-line system-line-primary" />
+    <span className="system-line system-line-secondary" />
+    <span className="system-line system-line-tertiary" />
+    <i className="system-node system-node-one" />
+    <i className="system-node system-node-two" />
+    <i className="system-node system-node-three" />
+  </div>;
 }
 
 export function HeroPortrait() {
-  return <div className="hero-portrait-stage"><ArchitecturalMandala /><div className="portrait-labels" aria-hidden="true"><span className="portrait-label label-learn">01 / Learn</span><span className="portrait-label label-design">02 / Design</span><span className="portrait-label label-integrate">03 / Integrate</span><span className="portrait-label label-build">04 / Build</span></div><picture className="hero-portrait-picture"><source media="(max-width: 620px)" srcSet="/images/hero-portrait-mobile.webp" /><img src="/images/hero-portrait.webp" width="1122" height="1256" alt="Mohamad Keshavarz sketching a system design at his desk" fetchPriority="high" decoding="async" /></picture><p className="portrait-caption"><span>WORKFLOW / 01</span> Turning questions into connected, useful systems.</p></div>;
+  return <div className="hero-portrait-stage"><HeroSystemField /><picture className="hero-portrait-picture"><source media="(max-width: 620px)" srcSet="/images/hero-portrait-mobile.webp" /><img src="/images/hero-portrait.webp" width="1122" height="1256" alt="Mohamad Keshavarz sketching a system design at his desk" fetchPriority="high" decoding="async" /></picture></div>;
 }
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
