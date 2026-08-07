@@ -21,6 +21,18 @@ export function SiteHeader({ name, initials, github }: { name: string; initials:
   return <header className="site-header" id="top"><a className="skip-link" href="#main">Skip to content</a><div className="container header-inner"><Link className="brand" href="/" onClick={() => setOpen(false)}><span>{initials}</span>{name}</Link><nav className={open ? "nav-open" : ""} aria-label="Primary navigation" id="primary-navigation">{navigation.map(([label, href]) => { const active = href === "/" ? path === "/" : path.startsWith(href); return <Link key={href} href={href} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>{label}</Link>; })}<a className="github-link" href={github} target="_blank" rel="noreferrer">GitHub ↗</a></nav><div className="header-actions"><button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label="Toggle color theme" title="Change theme">◐</button><button className="menu-button" type="button" aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}><span>{open ? "Close" : "Menu"}</span><i aria-hidden="true" /></button></div></div></header>;
 }
 
+export function HeroShowcase({ introduction, displayName, location }: { introduction: string; displayName: string; location: string }) {
+  return <section className="hero container hero--full" aria-label="Introduction">
+    <div className="hero-copy">
+      <p className="eyebrow"><span className="signal-dot" /> The Curious Orchestrator</p>
+      <h1>Software engineer building connected systems—and documenting what I learn.</h1>
+      <p>{introduction}</p>
+      <div className="hero-actions"><Link className="button button-primary" href="/projects">View projects <span>↗</span></Link><Link className="button button-secondary" href="/writing">Explore notes</Link><Link className="text-link" href="/library">Browse my library <span>→</span></Link></div>
+      <p className="hero-location">Hi, I&apos;m {displayName}. · {location}</p>
+    </div>
+  </section>;
+}
+
 export function CopyEmail({ email }: { email: string }) {
   const [label, setLabel] = useState("Copy email");
   const copy = async () => { try { await navigator.clipboard.writeText(email); setLabel("Copied"); setTimeout(() => setLabel("Copy email"), 1800); } catch { setLabel("Copy unavailable"); } };

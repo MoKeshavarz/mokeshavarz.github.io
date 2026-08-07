@@ -40,7 +40,7 @@ function HeroSystemField() {
 }
 
 export function HeroPortrait() {
-  return <div className="hero-portrait-stage"><HeroSystemField /><picture className="hero-portrait-picture"><source media="(max-width: 620px)" srcSet="/images/hero-portrait-mobile.webp" /><img src="/images/hero-portrait.webp" width="1122" height="1256" alt="Mohamad Keshavarz sketching a system design at his desk" fetchPriority="high" decoding="async" /></picture></div>;
+  return <div className="hero-portrait-stage"><HeroSystemField /><picture className="hero-portrait-picture"><img src="/images/hero-editorial.webp" width="1400" height="1160" alt="Mohamad Keshavarz working at a desk with a laptop and system-design sketches" fetchPriority="high" decoding="async" /></picture><div className="hero-system-foreground" aria-hidden="true"><span /><i /></div></div>;
 }
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
