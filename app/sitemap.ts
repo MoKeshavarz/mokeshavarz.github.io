@@ -11,5 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...projects.map((item) => ({ url: `${base}/projects/${item.slug}`, lastModified: new Date("2026-08-03"), changeFrequency: "monthly" as const, priority: .7 })),
     ...writing.map((item) => ({ url: `${base}/writing/${item.slug}`, lastModified: new Date(item.updated), changeFrequency: "monthly" as const, priority: .7 })),
     ...books.map((item) => ({ url: `${base}/library/${item.slug}`, lastModified: new Date("2026-08-03"), changeFrequency: "monthly" as const, priority: .6 })),
+    ...books.flatMap((book) => (book.parts ?? []).map((part) => ({ url: `${base}/library/${book.slug}/${part.slug}`, lastModified: new Date("2026-08-15"), changeFrequency: "monthly" as const, priority: .6 }))),
   ];
 }

@@ -30,6 +30,9 @@ export function HeroShowcase({ introduction, displayName, location }: { introduc
       <div className="hero-actions"><Link className="button button-primary" href="/projects">View projects <span>↗</span></Link><Link className="button button-secondary" href="/writing">Explore notes</Link><Link className="text-link" href="/library">Browse my library <span>→</span></Link></div>
       <p className="hero-location">Hi, I&apos;m {displayName}. · {location}</p>
     </div>
+    <picture className="hero-media">
+      <img src="/images/hero-editorial.webp" width="1586" height="992" alt={`${displayName} surrounded by system-design diagrams`} fetchPriority="high" decoding="async" />
+    </picture>
   </section>;
 }
 
