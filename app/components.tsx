@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { books, formatDate, profile, projects, type Book, type Project, type Writing } from "./content";
+import { books, formatDate, profile, projects, writing, type Book, type Project, type Writing } from "./content";
 import { CopyEmail, GithubActivity, SiteHeader } from "./client";
 
 export function Header() { return <SiteHeader name={profile.displayName} initials={profile.initials} github={profile.github} />; }
@@ -11,7 +11,7 @@ export function Footer() {
       <div className="container footer-grid">
         <div><Link className="brand footer-brand" href="/"><span>{profile.initials}</span>{profile.name}</Link><p>Built as a connected record of what I create, study, and learn.</p></div>
         <nav aria-label="Footer navigation"><Link href="/projects">Projects</Link><Link href="/writing">Writing</Link><Link href="/library">Library</Link><Link href="/about">About</Link><Link href="/contact">Contact</Link></nav>
-        <div className="footer-meta"><a href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={`mailto:${profile.email}`}>{profile.email}</a><a href="/rss.xml">RSS</a></div>
+        <div className="footer-meta"><a href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={`mailto:${profile.email}`} data-analytics-event="contact_click" data-analytics-location="footer">{profile.email}</a><a href="/rss.xml">RSS</a></div>
       </div>
       <div className="container footer-bottom"><span>© 2026 {profile.name}</span><a href="#top">Back to top ↑</a></div>
     </footer>
@@ -50,20 +50,21 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
     <h3>{project.title}</h3><p>{project.description}</p>
     <dl><div><dt>Challenge</dt><dd>{project.challenge}</dd></div><div><dt>Approach</dt><dd>{project.approach}</dd></div></dl>
     <div className="tag-row">{project.technologies.map((item) => <span key={item}>{item}</span>)}</div>
-    <Link className="card-link" href={`/projects/${project.slug}`}>Read the case-study structure <span>↗</span></Link>
+    <Link className="card-link" href={`/projects/${project.slug}`} data-analytics-event="select_content" data-analytics-content-type="project" data-analytics-content-id={project.slug}>Read the case-study structure <span>↗</span></Link>
   </article>;
 }
 
 export function WritingCard({ item }: { item: Writing }) {
-  return <article className="writing-card"><div className="writing-meta"><span>{item.type}</span><time dateTime={item.date}>{formatDate(item.date)}</time></div><h3><Link href={`/writing/${item.slug}`}>{item.title}</Link></h3><p>{item.description}</p><div className="writing-footer"><span>{item.readTime} min read</span><span>{item.category}</span><Link href={`/writing/${item.slug}`} aria-label={`Read ${item.title}`}>↗</Link></div></article>;
+  const contentType = item.type === "Case Study" ? "case_study" : item.type === "Learning Note" ? "learning_note" : item.type === "Book Summary" ? "book_summary" : "article";
+  return <article className="writing-card"><div className="writing-meta"><span>{item.type}</span><time dateTime={item.date}>{formatDate(item.date)}</time></div><h3><Link href={`/writing/${item.slug}`} data-analytics-event="select_content" data-analytics-content-type={contentType} data-analytics-content-id={item.slug}>{item.title}</Link></h3><p>{item.description}</p><div className="writing-footer"><span>{item.readTime} min read</span><span>{item.category}</span><Link href={`/writing/${item.slug}`} aria-label={`Read ${item.title}`} data-analytics-event="select_content" data-analytics-content-type={contentType} data-analytics-content-id={item.slug}>↗</Link></div></article>;
 }
 
 export function BookCard({ book }: { book: Book }) {
-  return <article className="book-card"><Link className={`book-cover ${!book.cover ? "book-cover-placeholder" : ""}`} href={`/library/${book.slug}`}>{book.cover ? <Image src={book.cover} alt={`Cover of ${book.title} by ${book.author}`} fill sizes="(max-width: 620px) 115px, 185px" /> : <span><small>PLACEHOLDER COVER</small>{book.title}</span>}<b>{book.readingStatus}</b></Link><div className="book-card-body"><p className="book-kind">{book.bookType} · {book.categories.join(" / ")}</p><h3><Link href={`/library/${book.slug}`}>{book.title}</Link></h3><p className="book-author">{book.author}</p><p>{book.shortDescription}</p>{book.readingStatus === "Reading" && <div className="progress-wrap"><div className="progress-label"><span>Reading progress</span><span>{book.progress ? `${book.progress}%` : "Not recorded"}</span></div><div className="progress"><span style={{ width: `${book.progress}%` }} /></div></div>}<Link className="text-link" href={`/library/${book.slug}`}>Open reading notes <span>↗</span></Link></div></article>;
+  return <article className="book-card"><Link className={`book-cover ${!book.cover ? "book-cover-placeholder" : ""}`} href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>{book.cover ? <Image src={book.cover} alt={`Cover of ${book.title} by ${book.author}`} fill sizes="(max-width: 620px) 115px, 185px" /> : <span><small>PLACEHOLDER COVER</small>{book.title}</span>}<b>{book.readingStatus}</b></Link><div className="book-card-body"><p className="book-kind">{book.bookType} · {book.categories.join(" / ")}</p><h3><Link href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>{book.title}</Link></h3><p className="book-author">{book.author}</p><p>{book.shortDescription}</p>{book.readingStatus === "Reading" && <div className="progress-wrap"><div className="progress-label"><span>Reading progress</span><span>{book.progress ? `${book.progress}%` : "Not recorded"}</span></div><div className="progress"><span style={{ width: `${book.progress}%` }} /></div></div>}<Link className="text-link" href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>Open reading notes <span>↗</span></Link></div></article>;
 }
 
 export function ContactBand() {
-  return <section className="contact-band"><div className="container"><p className="eyebrow">Start a conversation</p><h2>Have an interesting problem to solve? Let&apos;s build something thoughtful.</h2><div className="contact-actions"><a className="button button-light" href={`mailto:${profile.email}`}>Send an email <span>↗</span></a><CopyEmail email={profile.email} /></div></div></section>;
+  return <section className="contact-band"><div className="container"><p className="eyebrow">Start a conversation</p><h2>Have an interesting problem to solve? Let&apos;s build something thoughtful.</h2><div className="contact-actions"><a className="button button-light" href={`mailto:${profile.email}`} data-analytics-event="contact_click" data-analytics-location="home">Send an email <span>↗</span></a><CopyEmail email={profile.email} location="home" /></div></div></section>;
 }
 
 export function GithubSection() { return <GithubActivity username={profile.githubUsername} profileUrl={profile.github} />; }
@@ -73,10 +74,10 @@ export function PlaceholderBanner({ children = "Demonstration content — replac
 }
 
 export function RelatedLinks({ writingSlugs = [], bookSlugs = [] }: { writingSlugs?: string[]; bookSlugs?: string[] }) {
-  const relatedWriting = writingSlugs;
+  const relatedWriting = writing.filter((item) => writingSlugs.includes(item.slug));
   const relatedBooks = books.filter((item) => bookSlugs.includes(item.slug));
   if (!relatedWriting.length && !relatedBooks.length) return null;
-  return <section className="related"><p className="eyebrow">Connected records</p><h2>Keep following the thread.</h2><div>{relatedWriting.map((slug) => <Link key={slug} href={`/writing/${slug}`}>Related writing <span>{slug.replaceAll("-", " ")} ↗</span></Link>)}{relatedBooks.map((book) => <Link key={book.slug} href={`/library/${book.slug}`}>Related book <span>{book.title} ↗</span></Link>)}</div></section>;
+  return <section className="related"><p className="eyebrow">Connected records</p><h2>Keep following the thread.</h2><div>{relatedWriting.map((item) => { const contentType = item.type === "Case Study" ? "case_study" : item.type === "Learning Note" ? "learning_note" : item.type === "Book Summary" ? "book_summary" : "article"; return <Link key={item.slug} href={`/writing/${item.slug}`} data-analytics-event="select_content" data-analytics-content-type={contentType} data-analytics-content-id={item.slug}>Related writing <span>{item.slug.replaceAll("-", " ")} ↗</span></Link>; })}{relatedBooks.map((book) => <Link key={book.slug} href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>Related book <span>{book.title} ↗</span></Link>)}</div></section>;
 }
 
 export const selectedProjects = projects.slice(0, 2);

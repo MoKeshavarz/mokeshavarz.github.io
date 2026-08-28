@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { GoogleAnalyticsPageView } from "./google-analytics";
+import { GoogleAnalyticsInteractions } from "./google-analytics";
 import "./globals.css";
 
 const siteUrl = "https://mokeshavarz.github.io";
@@ -25,5 +25,5 @@ const structuredData = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" suppressHydrationWarning><head><meta name="theme-color" content="#f5f2ea" /><Script async src="https://www.googletagmanager.com/gtag/js?id=G-QV3KCWKDR7" strategy="afterInteractive" /><Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-QV3KCWKDR7',{send_page_view:false});`}</Script><script dangerouslySetInnerHTML={{ __html: `try{const t=localStorage.getItem('portfolio-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.dataset.theme='dark'}catch(e){}` }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /></head><body><GoogleAnalyticsPageView />{children}</body></html>;
+  return <html lang="en" suppressHydrationWarning><head><meta name="theme-color" content="#f5f2ea" /><Script async src="https://www.googletagmanager.com/gtag/js?id=G-QV3KCWKDR7" strategy="afterInteractive" /><Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-QV3KCWKDR7');`}</Script><script dangerouslySetInnerHTML={{ __html: `try{const t=localStorage.getItem('portfolio-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.dataset.theme='dark'}catch(e){}` }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /></head><body><GoogleAnalyticsInteractions />{children}</body></html>;
 }

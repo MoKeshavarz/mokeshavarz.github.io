@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { Book, Writing } from "./content";
+import { trackCopyEmail, trackSearch } from "./google-analytics";
 
 const navigation = [
   ["Home", "/"], ["Projects", "/projects"], ["Writing", "/writing"], ["Library", "/library"], ["Experience", "/experience"], ["About", "/about"], ["Contact", "/contact"],
@@ -36,27 +37,41 @@ export function HeroShowcase({ introduction, displayName, location }: { introduc
   </section>;
 }
 
-export function CopyEmail({ email }: { email: string }) {
+export function CopyEmail({ email, location }: { email: string; location: string }) {
   const [label, setLabel] = useState("Copy email");
-  const copy = async () => { try { await navigator.clipboard.writeText(email); setLabel("Copied"); setTimeout(() => setLabel("Copy email"), 1800); } catch { setLabel("Copy unavailable"); } };
+  const copy = async () => { try { await navigator.clipboard.writeText(email); trackCopyEmail(location); setLabel("Copied"); setTimeout(() => setLabel("Copy email"), 1800); } catch { setLabel("Copy unavailable"); } };
   return <button className="button button-ghost-light" type="button" onClick={copy} aria-live="polite">{label}</button>;
 }
 
 export function WritingExplorer({ items }: { items: Writing[] }) {
   const [query, setQuery] = useState(""); const [type, setType] = useState("All"); const [category, setCategory] = useState("All"); const [time, setTime] = useState("All");
+  const lastTrackedSearch = useRef("");
   const categories = ["All", ...Array.from(new Set(items.map((item) => item.category)))];
   const types = ["All", ...Array.from(new Set(items.map((item) => item.type)))];
   const filtered = useMemo(() => items.filter((item) => {
     const haystack = [item.title, item.description, item.type, item.category, ...item.tags, ...item.technologies].join(" ").toLowerCase();
     return haystack.includes(query.toLowerCase()) && (type === "All" || item.type === type) && (category === "All" || item.category === category) && (time === "All" || (time === "Short" ? item.readTime <= 5 : item.readTime > 5));
   }), [items, query, type, category, time]);
-  return <div className="explorer"><div className="filter-panel"><label className="search-field"><span>Search titles, topics, tags, or technologies</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search the knowledge record…" /></label><div className="filter-row"><label><span>Content type</span><select value={type} onChange={(event) => setType(event.target.value)}>{types.map((value) => <option key={value}>{value}</option>)}</select></label><label><span>Category</span><select value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((value) => <option key={value}>{value}</option>)}</select></label><label><span>Reading time</span><select value={time} onChange={(event) => setTime(event.target.value)}><option>All</option><option>Short</option><option>Long</option></select></label></div><p className="results-status" aria-live="polite">{filtered.length} {filtered.length === 1 ? "record" : "records"} found · filters updated</p></div>{filtered.length ? <div className="writing-grid">{filtered.map((item) => <article className="writing-card" key={item.slug}><div className="writing-meta"><span>{item.type}</span><time>{new Date(`${item.date}T00:00:00`).toLocaleDateString("en", { year: "numeric", month: "short", day: "numeric" })}</time></div><h2><Link href={`/writing/${item.slug}`}>{item.title}</Link></h2><p>{item.description}</p><div className="writing-footer"><span>{item.readTime} min read</span><span>{item.category}</span><Link href={`/writing/${item.slug}`} aria-label={`Read ${item.title}`}>↗</Link></div></article>)}</div> : <div className="empty-state"><span>00</span><h2>No content matches these filters yet.</h2><p>Try another topic or explore all entries.</p><button type="button" onClick={() => { setQuery(""); setType("All"); setCategory("All"); setTime("All"); }}>Clear filters</button></div>}</div>;
+  useEffect(() => {
+    const searchTerm = query.trim();
+    if (searchTerm.length < 2) {
+      lastTrackedSearch.current = "";
+      return;
+    }
+    if (searchTerm === lastTrackedSearch.current) return;
+    const timeout = window.setTimeout(() => {
+      trackSearch(searchTerm);
+      lastTrackedSearch.current = searchTerm;
+    }, 400);
+    return () => window.clearTimeout(timeout);
+  }, [query]);
+  return <div className="explorer"><div className="filter-panel"><label className="search-field"><span>Search titles, topics, tags, or technologies</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search the knowledge record…" /></label><div className="filter-row"><label><span>Content type</span><select value={type} onChange={(event) => setType(event.target.value)}>{types.map((value) => <option key={value}>{value}</option>)}</select></label><label><span>Category</span><select value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((value) => <option key={value}>{value}</option>)}</select></label><label><span>Reading time</span><select value={time} onChange={(event) => setTime(event.target.value)}><option>All</option><option>Short</option><option>Long</option></select></label></div><p className="results-status" aria-live="polite">{filtered.length} {filtered.length === 1 ? "record" : "records"} found · filters updated</p></div>{filtered.length ? <div className="writing-grid">{filtered.map((item) => { const contentType = item.type === "Case Study" ? "case_study" : item.type === "Learning Note" ? "learning_note" : item.type === "Book Summary" ? "book_summary" : "article"; return <article className="writing-card" key={item.slug}><div className="writing-meta"><span>{item.type}</span><time>{new Date(`${item.date}T00:00:00`).toLocaleDateString("en", { year: "numeric", month: "short", day: "numeric" })}</time></div><h2><Link href={`/writing/${item.slug}`} data-analytics-event="select_content" data-analytics-content-type={contentType} data-analytics-content-id={item.slug}>{item.title}</Link></h2><p>{item.description}</p><div className="writing-footer"><span>{item.readTime} min read</span><span>{item.category}</span><Link href={`/writing/${item.slug}`} aria-label={`Read ${item.title}`} data-analytics-event="select_content" data-analytics-content-type={contentType} data-analytics-content-id={item.slug}>↗</Link></div></article>; })}</div> : <div className="empty-state"><span>00</span><h2>No content matches these filters yet.</h2><p>Try another topic or explore all entries.</p><button type="button" onClick={() => { setQuery(""); setType("All"); setCategory("All"); setTime("All"); }}>Clear filters</button></div>}</div>;
 }
 
 export function LibraryExplorer({ items }: { items: Book[] }) {
   const [status, setStatus] = useState("All"); const [kind, setKind] = useState("All");
   const filtered = items.filter((item) => (status === "All" || item.readingStatus === status) && (kind === "All" || item.bookType === kind));
-  return <div className="library-explorer"><div className="library-filter"><div><span>Reading status</span>{["All", "Reading", "Finished", "To Read", "Paused"].map((value) => <button key={value} className={status === value ? "selected" : ""} type="button" onClick={() => setStatus(value)} aria-pressed={status === value}>{value}</button>)}</div><div><span>Book type</span>{["All", "Technical", "Non-technical"].map((value) => <button key={value} className={kind === value ? "selected" : ""} type="button" onClick={() => setKind(value)} aria-pressed={kind === value}>{value}</button>)}</div><p aria-live="polite">Showing {filtered.length} books</p></div>{filtered.length ? <div className="library-grid">{filtered.map((book) => <article className="book-card" key={book.slug}><Link className={`book-cover ${!book.cover ? "book-cover-placeholder" : ""}`} href={`/library/${book.slug}`}>{book.cover ? <Image src={book.cover} alt={`Cover of ${book.title} by ${book.author}`} fill sizes="(max-width: 620px) 115px, 165px" /> : <span><small>PLACEHOLDER COVER</small>{book.title}</span>}<b>{book.readingStatus}</b></Link><div className="book-card-body"><p className="book-kind">{book.bookType} · {book.categories.join(" / ")}</p><h2><Link href={`/library/${book.slug}`}>{book.title}</Link></h2><p className="book-author">{book.author}</p><p>{book.shortDescription}</p><Link className="text-link" href={`/library/${book.slug}`}>Open reading notes <span>↗</span></Link></div></article>)}</div> : <div className="empty-state"><span>00</span><h2>No books in this view yet.</h2><p>Try another reading status or book type.</p></div>}</div>;
+  return <div className="library-explorer"><div className="library-filter"><div><span>Reading status</span>{["All", "Reading", "Finished", "To Read", "Paused"].map((value) => <button key={value} className={status === value ? "selected" : ""} type="button" onClick={() => setStatus(value)} aria-pressed={status === value}>{value}</button>)}</div><div><span>Book type</span>{["All", "Technical", "Non-technical"].map((value) => <button key={value} className={kind === value ? "selected" : ""} type="button" onClick={() => setKind(value)} aria-pressed={kind === value}>{value}</button>)}</div><p aria-live="polite">Showing {filtered.length} books</p></div>{filtered.length ? <div className="library-grid">{filtered.map((book) => <article className="book-card" key={book.slug}><Link className={`book-cover ${!book.cover ? "book-cover-placeholder" : ""}`} href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>{book.cover ? <Image src={book.cover} alt={`Cover of ${book.title} by ${book.author}`} fill sizes="(max-width: 620px) 115px, 165px" /> : <span><small>PLACEHOLDER COVER</small>{book.title}</span>}<b>{book.readingStatus}</b></Link><div className="book-card-body"><p className="book-kind">{book.bookType} · {book.categories.join(" / ")}</p><h2><Link href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>{book.title}</Link></h2><p className="book-author">{book.author}</p><p>{book.shortDescription}</p><Link className="text-link" href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>Open reading notes <span>↗</span></Link></div></article>)}</div> : <div className="empty-state"><span>00</span><h2>No books in this view yet.</h2><p>Try another reading status or book type.</p></div>}</div>;
 }
 
 type Repo = { id: number; name: string; html_url: string; description: string | null; language: string | null; updated_at: string; stargazers_count: number };
