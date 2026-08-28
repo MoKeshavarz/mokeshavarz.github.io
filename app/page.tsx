@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { books, capabilities, experiencePlaceholder, interests, profile, projects, writing } from "./content";
-import { BookCard, ContactBand, Footer, GithubSection, Header, PlaceholderBanner, ProjectCard, SectionHeading, WritingCard } from "./components";
+import { books, capabilities, experiences, interests, profile, projects, writing } from "./content";
+import { BookCard, ContactBand, Footer, GithubSection, Header, ProjectCard, SectionHeading, WritingCard } from "./components";
 import { HeroShowcase } from "./client";
 
 export default function Home() {
@@ -12,9 +12,9 @@ export default function Home() {
 
       <div className="signal-strip"><div className="container"><span>SYSTEM RECORD / 2026</span><p>Understand</p><i /> <p>Connect</p><i /> <p>Build</p><i /> <p>Learn</p></div></div>
 
-      <section className="section container" id="projects"><SectionHeading label="Selected projects" title="The connections matter as much as the components." text="Case-study structures centered on the problem, engineering decision, systems connected, outcome, and learning." link={{ href: "/projects", label: "View all projects" }} /><PlaceholderBanner>Project entries are clearly marked templates. Replace them with real work, verified outcomes, and repository links.</PlaceholderBanner><div className="project-grid">{projects.slice(0, 2).map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section>
+      <section className="section container" id="projects"><SectionHeading label="Selected work" title="The connections matter as much as the components." text="Case studies centered on the real problem, constraints, engineering decisions, outcome, and lessons." link={{ href: "/projects", label: "View all case studies" }} /><div className="project-grid">{projects.slice(0, 2).map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section>
 
-      <section className="section section-tinted"><div className="container"><SectionHeading label="Recently published" title="Notes from building, reading, and reconsidering." text="Technical articles, case studies, and learning notes share one connected knowledge record." link={{ href: "/writing", label: "Explore all writing" }} /><div className="writing-grid">{writing.slice(0, 3).map((item) => <WritingCard item={item} key={item.slug} />)}</div></div></section>
+      {writing.length > 0 && <section className="section section-tinted"><div className="container"><SectionHeading label="Recently published" title="Notes from building, reading, and reconsidering." text="Technical articles and learning notes extend the experience record without repeating it." link={{ href: "/writing", label: "Explore all writing" }} /><div className="writing-grid">{writing.slice(0, 3).map((item) => <WritingCard item={item} key={item.slug} />)}</div></div></section>}
 
       <section className="section container"><SectionHeading label="Currently reading" title="Ideas in progress, not trophies on a shelf." text="A reading record that connects technical and non-technical books to work, questions, and practice." link={{ href: "/library", label: "Visit the library" }} /><div className="book-feature-grid">{currentlyReading.map((book) => <BookCard book={book} key={book.slug} />)}</div></section>
 
@@ -22,7 +22,7 @@ export default function Home() {
 
       <section className="section container"><SectionHeading label="Technical capabilities" title="Broad enough to see the system. Focused enough to care about the details." /><div className="capability-grid">{capabilities.map((item) => <article key={item.number}><span>{item.number}</span><h3>{item.title}</h3><p>{item.detail}</p></article>)}</div></section>
 
-      <section className="section section-tinted"><div className="container experience-preview"><div><p className="eyebrow">Experience</p><h2>Evidence over inflated claims.</h2><p>{experiencePlaceholder.text}</p><Link className="button button-secondary" href="/experience">View experience record</Link></div><div className="experience-empty"><span>STATUS / DOCUMENTING</span><h3>{experiencePlaceholder.title}</h3><p>Roles, responsibilities, outcomes, and systems will appear here when verified details are available.</p></div></div></section>
+      <section className="section section-tinted"><div className="container experience-preview"><div><p className="eyebrow">Experience</p><h2>Four chapters. Four different lessons about software.</h2><p>From building applications that were later abandoned to recovering legacy products, learning disciplined change, and questioning what an MVP is for.</p><Link className="button button-secondary" href="/experience">View experience record</Link></div><ol className="experience-preview-list">{experiences.map((experience, index) => <li key={experience.slug}><span>{String(index + 1).padStart(2, "0")}</span><div><Link href={`/experience/${experience.slug}`}>{experience.company}</Link><p>{experience.theme}</p></div><time dateTime={experience.startDate}>{experience.dateLabel}</time></li>)}</ol></div></section>
 
       <section className="section container"><SectionHeading label="Beyond engineering" title="Discipline, rhythm, and the practice of paying attention." text="Sports teach me consistency and resilience. Music reminds me that structure and creativity can work together." /><div className="interest-grid">{interests.map((item, index) => <article key={item.title}><span>0{index + 1} / {item.type}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
 

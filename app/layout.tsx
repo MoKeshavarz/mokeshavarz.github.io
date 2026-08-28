@@ -8,10 +8,10 @@ const siteUrl = "https://mokeshavarz.github.io";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: "Mohamad Keshavarz · The Curious Orchestrator", template: "%s · Mohamad Keshavarz" },
-  description: "Software engineer connecting technologies, solving meaningful problems, and sharing what I learn along the way.",
+  description: "An engineering career portfolio about the systems I built, what went wrong, the decisions I made, and how my thinking changed.",
   alternates: { canonical: "/", types: { "application/rss+xml": [{ url: "/rss.xml", title: "All content" }, { url: "/rss/articles.xml", title: "Articles" }, { url: "/rss/notes.xml", title: "Learning notes" }] } },
-  openGraph: { title: "Mohamad Keshavarz · The Curious Orchestrator", description: "Software engineer building connected systems—and documenting what I learn.", url: siteUrl, siteName: "Mohamad Keshavarz", type: "website", images: [{ url: "/og.png", width: 1200, height: 630, alt: "Mohamad Keshavarz — The Curious Orchestrator" }] },
-  twitter: { card: "summary_large_image", title: "Mohamad Keshavarz · The Curious Orchestrator", description: "Software engineer building connected systems—and documenting what I learn.", images: ["/og.png"] },
+  openGraph: { title: "Mohamad Keshavarz · The Curious Orchestrator", description: "Engineering stories about building, recovering, changing, and learning from software.", url: siteUrl, siteName: "Mohamad Keshavarz", type: "website", images: [{ url: "/og.png", width: 1200, height: 630, alt: "Mohamad Keshavarz — The Curious Orchestrator" }] },
+  twitter: { card: "summary_large_image", title: "Mohamad Keshavarz · The Curious Orchestrator", description: "Engineering stories about building, recovering, changing, and learning from software.", images: ["/og.png"] },
   robots: { index: true, follow: true },
   icons: { icon: "/favicon.svg" },
 };
@@ -20,7 +20,7 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Mohamad Keshavarz", alternateName: ["Mo", "Ario"], email: "mailto:mokeshavarz.programmer@gmail.com", url: siteUrl, jobTitle: "Software Engineer", sameAs: ["https://github.com/MoKeshavarz"] },
-    { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: siteUrl, name: "Mohamad Keshavarz · The Curious Orchestrator", description: "A connected record of software projects, engineering decisions, writing, books, and learning.", author: { "@id": `${siteUrl}/#person` } },
+    { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: siteUrl, name: "Mohamad Keshavarz · The Curious Orchestrator", description: "A connected record of engineering experience, case studies, writing, books, and learning.", author: { "@id": `${siteUrl}/#person` } },
   ],
 };
 

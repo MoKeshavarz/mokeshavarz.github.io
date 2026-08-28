@@ -4,14 +4,15 @@ A connected personal portfolio for projects, engineering decisions, writing, boo
 
 ## Content
 
-The portfolio deliberately avoids invented work or achievements. Replace the clearly marked project, writing, technical-book, and experience placeholders in `app/content.ts` with verified information. Existing reading and profile details are kept separate from demonstration entries through explicit labels.
+The portfolio deliberately avoids invented work or achievements. Content is split by purpose under `app/content/` and re-exported through `app/content.ts`:
 
-The main content records are:
+- `experience.ts` — verified career chapters, narrative sections, technologies, and selected-work relationships
+- `projects.ts` — case studies covering context, responsibility, constraints, decisions, outcomes, trade-offs, and lessons
+- `writing.ts` — published writing plus a separate, non-public draft idea list
+- `books.ts` — technical/non-technical reading records and personal notes
+- `profile.ts` and `misc.ts` — profile, capabilities, and interests
 
-- `projects` — problem, responsibility, engineering decision, connected systems, outcome, and lesson
-- `writing` — articles, case studies, book summaries, and evolving learning notes
-- `books` — technical/non-technical type, reading status, progress, and personal notes
-- `capabilities`, `interests`, and `profile` — supporting personal information
+Experience pages describe what happened. Case studies explain how a particular engineering problem was handled. Writing is reserved for later reflection, and draft ideas are not exported as public pages.
 
 Images live in `public/`. Social metadata uses `public/og.png`.
 

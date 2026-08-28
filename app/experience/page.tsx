@@ -1,7 +1,44 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { experiencePlaceholder } from "../content";
-import { Footer, Header, PageIntro, PlaceholderBanner } from "../components";
+import { experiences } from "../content";
+import { Footer, Header, PageIntro } from "../components";
 
-export const metadata: Metadata = { title: "Experience", description: "A transparent experience record focused on responsibilities, systems, decisions, and verified outcomes." };
-export default function ExperiencePage() { return <><Header /><main id="main"><PageIntro label="Experience / Record" title="Work history belongs here when the details are ready." text="This page is intentionally honest about missing information. It will document real roles, responsibilities, team context, systems, and verified outcomes without sample achievements." /><section className="page-section container"><PlaceholderBanner>Experience content is not yet configured. Add only verified dates, companies, responsibilities, technologies, and outcomes.</PlaceholderBanner><div className="experience-documenting"><div><span>00</span><p>Current state</p></div><div><h2>{experiencePlaceholder.title}</h2><p>{experiencePlaceholder.text}</p><ol><li><span>01</span>Role and organization</li><li><span>02</span>Context and responsibilities</li><li><span>03</span>Systems and services connected</li><li><span>04</span>Verified outcomes and trade-offs</li><li><span>05</span>Lessons carried forward</li></ol><Link className="button button-primary" href="/contact">Ask about my experience <span>↗</span></Link></div></div></section></main><Footer /></>; }
+export const metadata: Metadata = {
+  title: "Experience",
+  description: "Mohamad Keshavarz’s engineering career, documented through the work, difficult parts, decisions, and lessons that changed his thinking.",
+  alternates: { canonical: "/experience/" },
+  openGraph: { title: "Experience · Mohamad Keshavarz", description: "An engineering career record about what happened and what it taught me.", url: "/experience/", type: "website" },
+};
+
+export default function ExperiencePage() {
+  return <>
+    <Header />
+    <main id="main">
+      <PageIntro
+        label="Experience / Career record"
+        title="A career shaped by software that shipped, stalled, recovered, and changed."
+        text="This is not a list of perfect outcomes. It is a chronological record of the systems I worked on, the conditions around them, and the ideas I carried into the next role."
+        aside={<div className="page-stat"><strong>{experiences.length}</strong><span>career chapters</span></div>}
+      />
+      <section className="page-section container experience-timeline" aria-label="Career timeline">
+        {experiences.map((experience, index) => <article className="experience-card" key={experience.slug}>
+          <div className="experience-marker" aria-hidden="true"><span>{String(index + 1).padStart(2, "0")}</span><i /></div>
+          <div className="experience-card-meta">
+            <p>{experience.dateLabel}</p>
+            <span>{experience.location}</span>
+          </div>
+          <div className="experience-card-body">
+            <p className="eyebrow">{experience.employmentType ?? (experience.remote ? "Remote" : "Experience")}</p>
+            <h2>{experience.company}{experience.alternateName && <small> / {experience.alternateName}</small>}</h2>
+            <h3>{experience.role}</h3>
+            <p>{experience.summary}</p>
+            <blockquote>{experience.theme}</blockquote>
+            <div className="tag-row">{experience.technologies.slice(0, 8).map((technology) => <span key={technology}>{technology}</span>)}</div>
+            <Link className="card-link" href={`/experience/${experience.slug}`} data-analytics-event="select_content" data-analytics-content-type="experience" data-analytics-content-id={experience.slug}>Read the story <span>↗</span></Link>
+          </div>
+        </article>)}
+      </section>
+    </main>
+    <Footer />
+  </>;
+}
