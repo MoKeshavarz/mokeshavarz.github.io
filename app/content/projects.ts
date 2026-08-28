@@ -16,6 +16,7 @@ export type Project = {
   technologies: string[];
   status: string;
   relatedWriting: string[];
+  featuredOrder?: number;
 };
 
 export const projects: Project[] = [
@@ -113,7 +114,7 @@ export const projects: Project[] = [
     problem:
       "User-facing features that looked compact in the interface required several systems to produce, store, reuse, and share consistent results.",
     constraints: [
-      "Generated media had a cost and should not be recreated every time it was requested.",
+      "Frequently requested generated audio should not be regenerated unnecessarily.",
       "The product combined proprietary framework code with C#, React, DynamoDB, and multiple external services.",
       "Certificate milestones needed consistent logic, data, rendering, and sharing behavior.",
       "Changes belonged to an established product serving millions of users, not a greenfield application.",
@@ -135,13 +136,14 @@ export const projects: Project[] = [
       "The certificate system became one of my favorite features from the role because its simple user story depended on careful coordination behind the interface.",
     ],
     tradeoffs: [
-      "Caching generated media reduces repeated work but introduces storage lifecycle and consistency questions.",
+      "Frequently requested generated audio was persisted in Amazon S3 so stored audio could be reused.",
       "Product frameworks accelerate common paths while making unusual integrations more dependent on understanding what they generate and hide.",
     ],
     lessons: ["Cross-system features succeed when each boundary has a clear responsibility.", "Automated testing and disciplined review make changes to an established product less fragile."],
     technologies: ["C#", "Zebble", "React", "DynamoDB", "Amazon S3", "AWS Rekognition", "OpenAI"],
     status: "Delivered during 2022–2023 role",
     relatedWriting: ["tests-give-you-permission-to-change-software"],
+    featuredOrder: 1,
   },
   {
     slug: "supplysustain-tender-draft-workflow",
@@ -184,9 +186,14 @@ export const projects: Project[] = [
     technologies: ["C#", ".NET", "Azure Blob Storage", "JSON", "SQL", "REST APIs"],
     status: "Early-stage MVP work · 2023–2024",
     relatedWriting: ["when-an-mvp-stops-being-an-mvp"],
+    featuredOrder: 2,
   },
 ];
 
 export function getProject(slug: string) {
   return projects.find((project) => project.slug === slug);
 }
+
+export const featuredProjects = projects
+  .filter((project) => project.featuredOrder !== undefined)
+  .sort((first, second) => (first.featuredOrder ?? 0) - (second.featuredOrder ?? 0));

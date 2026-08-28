@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { books, formatDate, profile, projects, writing, type Book, type Project, type Writing } from "./content";
+import { books, formatDate, profile, writing, type Book, type Project, type Writing } from "./content";
 import { CopyEmail, GithubActivity, SiteHeader } from "./client";
 
 export function Header() { return <SiteHeader name={profile.displayName} initials={profile.initials} github={profile.github} />; }
@@ -79,5 +79,3 @@ export function RelatedLinks({ writingSlugs = [], bookSlugs = [] }: { writingSlu
   if (!relatedWriting.length && !relatedBooks.length) return null;
   return <section className="related"><p className="eyebrow">Connected records</p><h2>Keep following the thread.</h2><div>{relatedWriting.map((item) => { const contentType = item.type === "Learning Note" ? "learning_note" : item.type === "Book Summary" ? "book_summary" : "article"; return <Link key={item.slug} href={`/writing/${item.slug}`} data-analytics-event="select_content" data-analytics-content-type={contentType} data-analytics-content-id={item.slug}>Related writing <span>{item.title} ↗</span></Link>; })}{relatedBooks.map((book) => <Link key={book.slug} href={`/library/${book.slug}`} data-analytics-event="select_content" data-analytics-content-type="book" data-analytics-content-id={book.slug}>Related book <span>{book.title} ↗</span></Link>)}</div></section>;
 }
-
-export const selectedProjects = projects.slice(0, 2);

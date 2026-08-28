@@ -1,18 +1,17 @@
 # Mohamad Keshavarz — The Curious Orchestrator
 
-A connected personal portfolio for projects, engineering decisions, writing, books, learning notes, experience, and interests beyond software.
+A connected engineering career portfolio documenting work, decisions, trade-offs, and the lessons carried forward.
 
 ## Content
 
-The portfolio deliberately avoids invented work or achievements. Content is split by purpose under `app/content/` and re-exported through `app/content.ts`:
+The public portfolio is organized around four connected layers:
 
-- `experience.ts` — verified career chapters, narrative sections, technologies, and selected-work relationships
-- `projects.ts` — case studies covering context, responsibility, constraints, decisions, outcomes, trade-offs, and lessons
-- `writing.ts` — published writing plus a separate, non-public draft idea list
-- `books.ts` — technical/non-technical reading records and personal notes
-- `profile.ts` and `misc.ts` — profile, capabilities, and interests
+- **Experience** — career narratives, context, and the lessons that shaped later work
+- **Case Studies / Selected Work** — specific engineering problems, responsibilities, decisions, approaches, outcomes, and trade-offs
+- **Writing** — broader reflections derived from engineering experience; only finished writing is published
+- **Library / Reading** — books, reading progress, and learning material
 
-Experience pages describe what happened. Case studies explain how a particular engineering problem was handled. Writing is reserved for later reflection, and draft ideas are not exported as public pages.
+Typed records live under `app/content/`. The site is statically generated, and unpublished writing drafts are not exposed as article pages.
 
 Images live in `public/`. Social metadata uses `public/og.png`.
 

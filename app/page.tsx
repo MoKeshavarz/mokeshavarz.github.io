@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { books, capabilities, experiences, interests, profile, projects, writing } from "./content";
+import { books, capabilities, experiences, featuredProjects, interests, profile, writing } from "./content";
 import { BookCard, ContactBand, Footer, GithubSection, Header, ProjectCard, SectionHeading, WritingCard } from "./components";
 import { HeroShowcase } from "./client";
 
@@ -12,7 +12,7 @@ export default function Home() {
 
       <div className="signal-strip"><div className="container"><span>SYSTEM RECORD / 2026</span><p>Understand</p><i /> <p>Connect</p><i /> <p>Build</p><i /> <p>Learn</p></div></div>
 
-      <section className="section container" id="projects"><SectionHeading label="Selected work" title="The connections matter as much as the components." text="Case studies centered on the real problem, constraints, engineering decisions, outcome, and lessons." link={{ href: "/projects", label: "View all case studies" }} /><div className="project-grid">{projects.slice(0, 2).map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section>
+      <section className="section container" id="projects"><SectionHeading label="Selected work" title="The connections matter as much as the components." text="Case studies centered on the real problem, constraints, engineering decisions, outcome, and lessons." link={{ href: "/projects", label: "View all case studies" }} /><div className="project-grid">{featuredProjects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section>
 
       {writing.length > 0 && <section className="section section-tinted"><div className="container"><SectionHeading label="Recently published" title="Notes from building, reading, and reconsidering." text="Technical articles and learning notes extend the experience record without repeating it." link={{ href: "/writing", label: "Explore all writing" }} /><div className="writing-grid">{writing.slice(0, 3).map((item) => <WritingCard item={item} key={item.slug} />)}</div></div></section>}
 

@@ -125,7 +125,7 @@ export const experiences: Experience[] = [
         heading: "Improving what could safely change",
         paragraphs: [
           "An Austrian food-delivery platform allowed restaurants to deliver by bicycle, motorcycle, or car, and let students and other individuals apply as delivery partners. Its architecture was poor, but a full rewrite was unrealistic. I reorganized the parts we could change safely instead of proposing a clean replacement that might never ship.",
-          "A separate Edinburgh ride-hailing application introduced me to SignalR, Twilio, Stripe, and AdminLTE. That project eventually stopped. The AdminLTE administration panel belonged to this ride-hailing project, not the Austrian delivery platform.",
+          "A separate Edinburgh ride-hailing application eventually stopped. I worked with SignalR, Twilio and Stripe, and built the administration panel using AdminLTE.",
         ],
         principle: "Pragmatic improvement can be more valuable than a perfect rewrite that never arrives.",
       },
@@ -219,14 +219,14 @@ export const experiences: Experience[] = [
   {
     slug: "supplysustain",
     company: "SupplySustain",
-    role: "Senior Software Engineer / Backend Software Engineer",
+    role: "Senior Software Engineer",
     startDate: "2023-05-01",
     endDate: "2024-06-30",
     dateLabel: "May 2023 – Jun 2024",
     location: "Remote · UAE-focused startup",
     remote: true,
     summary:
-      "I joined the early-stage team building an MVP for a UAE tender and procurement product. My work belongs to that early version of the platform, not necessarily the product as it exists today.",
+      "I joined the early-stage team building an MVP for a UAE tender and procurement product. My main responsibility was backend engineering. This work belongs to that early version of the platform, not necessarily the product as it exists today.",
     theme: "I learned that an MVP is a mechanism for reducing uncertainty, not simply a smaller full product.",
     technologies: ["C#", ".NET", "Azure Blob Storage", "SQL", "JSON", "REST APIs"],
     selectedProjects: ["supplysustain-tender-draft-workflow"],
