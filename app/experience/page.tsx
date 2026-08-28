@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { experiences } from "../content";
 import { Footer, Header, PageIntro } from "../components";
@@ -28,7 +29,12 @@ export default function ExperiencePage() {
             <span>{experience.location}</span>
           </div>
           <div className="experience-card-body">
-            <p className="eyebrow">{experience.employmentType ?? (experience.remote ? "Remote" : "Experience")}</p>
+            <div className="experience-card-brand">
+              <p className="eyebrow">{experience.employmentType ?? (experience.remote ? "Remote" : "Experience")}</p>
+              {experience.logo && experience.website && <a className={`experience-company-logo experience-company-logo-${experience.slug}`} href={experience.website} target="_blank" rel="noreferrer" aria-label={`Visit ${experience.company} website`}>
+                <Image src={experience.logo} alt={`${experience.company} logo`} width={440} height={152} />
+              </a>}
+            </div>
             <h2>{experience.company}{experience.alternateName && <small> / {experience.alternateName}</small>}</h2>
             <h3>{experience.role}</h3>
             <p>{experience.summary}</p>

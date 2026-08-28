@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { experiences, getExperience, getProject } from "../../content";
@@ -39,6 +40,9 @@ export default async function ExperienceDetail({ params }: { params: Promise<{ s
         <Link className="back-link" href="/experience">← All experience</Link>
         <header className="experience-hero">
           <p className="eyebrow">Experience / {experience.dateLabel}</p>
+          {experience.logo && experience.website && <a className={`experience-company-logo experience-company-logo-hero experience-company-logo-${experience.slug}`} href={experience.website} target="_blank" rel="noreferrer" aria-label={`Visit ${experience.company} website`}>
+            <Image src={experience.logo} alt={`${experience.company} logo`} width={440} height={152} />
+          </a>}
           <h1>{experience.company}{experience.alternateName && <small> / {experience.alternateName}</small>}</h1>
           <p className="experience-role">{experience.role}</p>
           <p className="article-deck">{experience.summary}</p>
@@ -73,17 +77,17 @@ export default async function ExperienceDetail({ params }: { params: Promise<{ s
               </Link>)}
             </section>}
 
-            <section className="experience-technologies" aria-labelledby="technologies-title">
+            {experience.technologies.length > 0 && <section className="experience-technologies" aria-labelledby="technologies-title">
               <p className="eyebrow">Technologies</p>
               <h2 id="technologies-title">Tools used during this period.</h2>
               <div className="tag-row">{experience.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
-            </section>
+            </section>}
           </div>
         </div>
 
         <nav className="experience-navigation" aria-label="Previous and next experience">
-          {previous ? <Link href={`/experience/${previous.slug}`}><span>← Previous experience</span><strong>{previous.company}</strong></Link> : <span className="experience-navigation-disabled">Beginning of the record</span>}
-          {next ? <Link className="experience-navigation-next" href={`/experience/${next.slug}`}><span>Next experience →</span><strong>{next.company}</strong></Link> : <span className="experience-navigation-disabled experience-navigation-next">Current end of the record</span>}
+          {previous ? <Link href={`/experience/${previous.slug}`}><span>← Newer experience</span><strong>{previous.company}</strong></Link> : <span className="experience-navigation-disabled">Current end of the record</span>}
+          {next ? <Link className="experience-navigation-next" href={`/experience/${next.slug}`}><span>Earlier experience →</span><strong>{next.company}</strong></Link> : <span className="experience-navigation-disabled experience-navigation-next">Beginning of the record</span>}
         </nav>
       </article>
     </main>

@@ -11,6 +11,8 @@ export type Experience = {
   alternateName?: string;
   role: string;
   employmentType?: string;
+  website?: string;
+  logo?: string;
   startDate: string;
   endDate: string;
   dateLabel: string;
@@ -25,11 +27,42 @@ export type Experience = {
 
 const experienceHistory: Experience[] = [
   {
+    slug: "mapna-pars",
+    company: "MAPNA Generator Engineering & Manufacturing Company",
+    alternateName: "Pars",
+    role: "Tech Lead",
+    employmentType: "Current role",
+    website: "https://mapnagenerator.com/En",
+    logo: "/images/experience/mapna-pars.png",
+    startDate: "2024-07-01",
+    endDate: "Present",
+    dateLabel: "Jul 2024 – Present",
+    location: "Alborz Province, Iran",
+    remote: false,
+    summary:
+      "I currently work as Tech Lead at MAPNA Generator Engineering & Manufacturing Company (Pars). This is an active chapter, so its fuller engineering record will develop as the work progresses.",
+    theme: "A current chapter in technical leadership, still being written.",
+    technologies: [],
+    selectedProjects: [],
+    sections: [
+      {
+        id: "current-chapter",
+        heading: "A chapter in progress",
+        paragraphs: [
+          "I joined MAPNA Generator Engineering & Manufacturing Company (Pars) as Tech Lead in July 2024 and continue in the role today.",
+          "Because this work is current, I am keeping the public record deliberately concise. Responsibilities, decisions, and lessons can be documented here when they are ready to be shared responsibly.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "c1station",
     company: "Motahar Net Pars",
     alternateName: "C1Station",
     role: "Part-time Software Developer",
     employmentType: "Part-time",
+    website: "https://c1station.ir/",
+    logo: "/images/experience/c1station.png",
     startDate: "2017-11-01",
     endDate: "2019-12-31",
     dateLabel: "Nov 2017 – Dec 2019",
@@ -151,6 +184,8 @@ const experienceHistory: Experience[] = [
     slug: "geeks",
     company: "Geeks Ltd",
     role: "Senior Software Engineer",
+    website: "https://www.geeks.ltd/",
+    logo: "/images/experience/geeks.png",
     startDate: "2022-07-01",
     endDate: "2023-06-30",
     dateLabel: "Jul 2022 – Jun 2023",
@@ -220,6 +255,8 @@ const experienceHistory: Experience[] = [
     slug: "supplysustain",
     company: "SupplySustain",
     role: "Senior Software Engineer",
+    website: "https://supplysustain.com/",
+    logo: "/images/experience/supplysustain.png",
     startDate: "2023-05-01",
     endDate: "2024-06-30",
     dateLabel: "May 2023 – Jun 2024",
@@ -286,7 +323,11 @@ const experienceHistory: Experience[] = [
 ];
 
 export const experiences = [...experienceHistory].sort(
-  (newer, older) => Date.parse(older.endDate) - Date.parse(newer.endDate),
+  (newer, older) => {
+    const newerEnd = newer.endDate === "Present" ? Number.POSITIVE_INFINITY : Date.parse(newer.endDate);
+    const olderEnd = older.endDate === "Present" ? Number.POSITIVE_INFINITY : Date.parse(older.endDate);
+    return olderEnd - newerEnd;
+  },
 );
 
 export function getExperience(slug: string) {
