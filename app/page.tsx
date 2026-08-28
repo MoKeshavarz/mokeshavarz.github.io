@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { books, capabilities, experiences, featuredProjects, interests, profile, writing } from "./content";
-import { BookCard, ContactBand, Footer, GithubSection, Header, ProjectCard, SectionHeading, WritingCard } from "./components";
+import { BookCard, ContactBand, Footer, Header, ProjectCard, SectionHeading, WritingCard } from "./components";
 import { HeroShowcase } from "./client";
 
 export default function Home() {
@@ -26,7 +26,6 @@ export default function Home() {
 
       <section className="section container"><SectionHeading label="Beyond engineering" title="Discipline, rhythm, and the practice of paying attention." text="Sports teach me consistency and resilience. Music reminds me that structure and creativity can work together." /><div className="interest-grid">{interests.map((item, index) => <article key={item.title}><span>0{index + 1} / {item.type}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
 
-      <GithubSection />
       <ContactBand />
     </main>
     <Footer />

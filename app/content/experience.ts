@@ -23,7 +23,7 @@ export type Experience = {
   selectedProjects: string[];
 };
 
-export const experiences: Experience[] = [
+const experienceHistory: Experience[] = [
   {
     slug: "c1station",
     company: "Motahar Net Pars",
@@ -284,6 +284,10 @@ export const experiences: Experience[] = [
     ],
   },
 ];
+
+export const experiences = [...experienceHistory].sort(
+  (newer, older) => Date.parse(older.endDate) - Date.parse(newer.endDate),
+);
 
 export function getExperience(slug: string) {
   return experiences.find((experience) => experience.slug === slug);

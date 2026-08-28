@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { books, formatDate, profile, writing, type Book, type Project, type Writing } from "./content";
-import { CopyEmail, GithubActivity, SiteHeader } from "./client";
+import { CopyEmail, SiteHeader } from "./client";
 
 export function Header() { return <SiteHeader name={profile.displayName} initials={profile.initials} github={profile.github} />; }
 
@@ -66,8 +66,6 @@ export function BookCard({ book }: { book: Book }) {
 export function ContactBand() {
   return <section className="contact-band"><div className="container"><p className="eyebrow">Start a conversation</p><h2>Have an interesting problem to solve? Let&apos;s build something thoughtful.</h2><div className="contact-actions"><a className="button button-light" href={`mailto:${profile.email}`} data-analytics-event="contact_click" data-analytics-location="home">Send an email <span>↗</span></a><CopyEmail email={profile.email} location="home" /></div></div></section>;
 }
-
-export function GithubSection() { return <GithubActivity username={profile.githubUsername} profileUrl={profile.github} />; }
 
 export function PlaceholderBanner({ children = "Demonstration content — replace with verified personal information before publishing." }: { children?: React.ReactNode }) {
   return <div className="placeholder-banner" role="note"><span aria-hidden="true">!</span><p>{children}</p></div>;
