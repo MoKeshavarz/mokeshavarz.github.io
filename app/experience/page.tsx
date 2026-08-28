@@ -32,7 +32,7 @@ export default function ExperiencePage() {
             <div className="experience-card-brand">
               <p className="eyebrow">{experience.employmentType ?? (experience.remote ? "Remote" : "Experience")}</p>
               {experience.logo && experience.website && <a className={`experience-company-logo experience-company-logo-${experience.slug}`} href={experience.website} target="_blank" rel="noreferrer" aria-label={`Visit ${experience.company} website`}>
-                <Image src={experience.logo} alt={`${experience.company} logo`} width={440} height={152} />
+                <Image src={experience.logo} alt={`${experience.company} logo`} fill sizes="220px" />
               </a>}
             </div>
             <h2>{experience.company}{experience.alternateName && <small> / {experience.alternateName}</small>}</h2>

@@ -41,7 +41,7 @@ export default async function ExperienceDetail({ params }: { params: Promise<{ s
         <header className="experience-hero">
           <p className="eyebrow">Experience / {experience.dateLabel}</p>
           {experience.logo && experience.website && <a className={`experience-company-logo experience-company-logo-hero experience-company-logo-${experience.slug}`} href={experience.website} target="_blank" rel="noreferrer" aria-label={`Visit ${experience.company} website`}>
-            <Image src={experience.logo} alt={`${experience.company} logo`} width={440} height={152} />
+            <Image src={experience.logo} alt={`${experience.company} logo`} fill sizes="300px" />
           </a>}
           <h1>{experience.company}{experience.alternateName && <small> / {experience.alternateName}</small>}</h1>
           <p className="experience-role">{experience.role}</p>
