@@ -1,8 +1,28 @@
 export const capabilities = [
-  { number: "01", title: "System design", detail: "Finding useful boundaries and making relationships explicit." },
-  { number: "02", title: "Product thinking", detail: "Connecting technical choices to the problem a product must solve." },
-  { number: "03", title: "C# & .NET", detail: "Building maintainable application flows across interfaces, services, and domain logic." },
-  { number: "04", title: "Data & integration", detail: "Designing reliable data flows across databases and external services." },
+  {
+    number: "01",
+    title: "Backend & applications",
+    detail: "Building maintainable application flows across interfaces, services, and domain logic.",
+    technologies: ["C#", ".NET", "ASP.NET Core", "Blazor"],
+  },
+  {
+    number: "02",
+    title: "Integration",
+    detail: "Connecting internal and external systems through explicit, dependable boundaries.",
+    technologies: ["REST APIs", "SOAP services", "Enterprise integrations"],
+  },
+  {
+    number: "03",
+    title: "Data",
+    detail: "Designing data models and queries that support reliable application workflows.",
+    technologies: ["SQL Server", "Data modelling", "Queries"],
+  },
+  {
+    number: "04",
+    title: "Architecture",
+    detail: "Finding useful boundaries and making relationships, responsibilities, and trade-offs explicit.",
+    technologies: ["System design", "Application architecture", "Integration boundaries"],
+  },
 ];
 
 export const interests = [

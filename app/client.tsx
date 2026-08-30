@@ -8,27 +8,35 @@ import type { Book, Writing } from "./content";
 import { trackCopyEmail, trackSearch } from "./google-analytics";
 
 const navigation = [
-  ["Home", "/"], ["Projects", "/projects"], ["Writing", "/writing"], ["Library", "/library"], ["Experience", "/experience"], ["About", "/about"], ["Contact", "/contact"],
+  ["Experience", "/experience"], ["Projects", "/projects"], ["Writing", "/writing"], ["Library", "/library"], ["About", "/about"],
 ];
 
-export function SiteHeader({ name, initials, github }: { name: string; initials: string; github: string }) {
+export function SiteHeader({ name, initials }: { name: string; initials: string }) {
   const [open, setOpen] = useState(false);
   const path = usePathname();
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
   const toggleTheme = () => {
     const next = document.documentElement.dataset.theme !== "dark";
     document.documentElement.dataset.theme = next ? "dark" : "light";
     localStorage.setItem("portfolio-theme", next ? "dark" : "light");
   };
-  return <header className="site-header" id="top"><a className="skip-link" href="#main">Skip to content</a><div className="container header-inner"><Link className="brand" href="/" onClick={() => setOpen(false)}><span>{initials}</span>{name}</Link><nav className={open ? "nav-open" : ""} aria-label="Primary navigation" id="primary-navigation">{navigation.map(([label, href]) => { const active = href === "/" ? path === "/" : path.startsWith(href); return <Link key={href} href={href} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>{label}</Link>; })}<a className="github-link" href={github} target="_blank" rel="noreferrer">GitHub ↗</a></nav><div className="header-actions"><button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label="Toggle color theme" title="Change theme">◐</button><button className="menu-button" type="button" aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}><span>{open ? "Close" : "Menu"}</span><i aria-hidden="true" /></button></div></div></header>;
+  return <header className="site-header" id="top"><a className="skip-link" href="#main">Skip to content</a><div className="container header-inner"><Link className="brand" href="/" onClick={() => setOpen(false)}><span>{initials}</span>{name}</Link><nav className={open ? "nav-open" : ""} aria-label="Primary navigation" id="primary-navigation">{navigation.map(([label, href]) => { const active = path.startsWith(href); return <Link key={href} href={href} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>{label}</Link>; })}</nav><div className="header-actions"><button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label="Toggle color theme" title="Change theme">◐</button><button className="menu-button" type="button" aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}><span>{open ? "Close" : "Menu"}</span><i aria-hidden="true" /></button></div></div></header>;
 }
 
-export function HeroShowcase({ introduction, displayName, location }: { introduction: string; displayName: string; location: string }) {
+export function HeroShowcase({ introduction, displayName, location, email, github, linkedin }: { introduction: string; displayName: string; location: string; email: string; github: string; linkedin: string }) {
   return <section className="hero container hero--full" aria-label="Introduction">
     <div className="hero-copy">
       <p className="eyebrow"><span className="signal-dot" /> The Curious Orchestrator</p>
       <h1>Software engineer building connected systems—and documenting what I learn.</h1>
       <p>{introduction}</p>
-      <div className="hero-actions"><Link className="button button-primary" href="/experience">Explore my experience <span>↗</span></Link><Link className="button button-secondary" href="/projects">View case studies</Link><Link className="text-link" href="/library">Browse my library <span>→</span></Link></div>
+      <ul className="hero-context" aria-label="Core engineering focus"><li>.NET applications</li><li>System design</li><li>Data & integrations</li></ul>
+      <div className="hero-actions"><Link className="button button-primary" href="/experience">View experience <span>↗</span></Link><Link className="button button-secondary" href="/projects">View selected work</Link></div>
+      <div className="hero-links" aria-label="Professional links"><a href={`mailto:${email}`}>Email</a>{linkedin && <a href={linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}<a href={github} target="_blank" rel="noreferrer">GitHub</a></div>
       <p className="hero-location">Hi, I&apos;m {displayName}. · {location}</p>
     </div>
     <picture className="hero-media">

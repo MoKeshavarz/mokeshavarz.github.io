@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { books, formatDate, profile, writing, type Book, type Project, type Writing } from "./content";
-import { CopyEmail, SiteHeader } from "./client";
+import { books, capabilities, formatDate, profile, writing, type Book, type Project, type Writing } from "./content";
+import { SiteHeader } from "./client";
 
-export function Header() { return <SiteHeader name={profile.displayName} initials={profile.initials} github={profile.github} />; }
+export function Header() { return <SiteHeader name={profile.displayName} initials={profile.initials} />; }
 
 export function Footer() {
   return (
@@ -24,6 +24,10 @@ export function PageIntro({ label, title, text, aside }: { label: string; title:
 
 export function SectionHeading({ label, title, text, link }: { label: string; title: string; text?: string; link?: { href: string; label: string } }) {
   return <div className="section-heading"><div><p className="eyebrow">{label}</p><h2>{title}</h2></div><div>{text && <p>{text}</p>}{link && <Link className="text-link" href={link.href}>{link.label} <span>↗</span></Link>}</div></div>;
+}
+
+export function CapabilityList() {
+  return <div className="capability-list">{capabilities.map((item) => <article key={item.number}><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.detail}</p><ul aria-label={`${item.title} technologies`}>{item.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul></div></article>)}</div>;
 }
 
 function HeroSystemField() {
@@ -64,7 +68,7 @@ export function BookCard({ book }: { book: Book }) {
 }
 
 export function ContactBand() {
-  return <section className="contact-band"><div className="container"><p className="eyebrow">Start a conversation</p><h2>Have an interesting problem to solve? Let&apos;s build something thoughtful.</h2><div className="contact-actions"><a className="button button-light" href={`mailto:${profile.email}`} data-analytics-event="contact_click" data-analytics-location="home">Send an email <span>↗</span></a><CopyEmail email={profile.email} location="home" /></div></div></section>;
+  return <section className="contact-band"><div className="container contact-band-inner"><div><p className="eyebrow">Start a conversation</p><h2>Interested in working together?</h2><p>Share the problem, the context, and what a useful outcome would look like.</p></div><nav className="contact-actions" aria-label="Contact options"><a href={`mailto:${profile.email}`} data-analytics-event="contact_click" data-analytics-location="home">Email <span>↗</span></a>{profile.linkedin && <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>}<a href={profile.github} target="_blank" rel="noreferrer">GitHub <span>↗</span></a></nav></div></section>;
 }
 
 export function PlaceholderBanner({ children = "Demonstration content — replace with verified personal information before publishing." }: { children?: React.ReactNode }) {
