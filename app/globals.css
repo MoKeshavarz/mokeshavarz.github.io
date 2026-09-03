@@ -386,16 +386,19 @@ h3 { font-size: 23px; font-weight: 600; }
 }
 
 /* Portrait architecture hero */
-.hero--full { position: relative; isolation: isolate; min-height: min(860px, calc(100svh - var(--header))); }
-.hero--full .hero-copy { padding-block: clamp(32px, 4vw, 64px); }
+.hero--full { position: relative; grid-template-areas: "copy portrait"; gap: clamp(24px, 3.2vw, 52px); isolation: isolate; min-height: min(860px, calc(100svh - var(--header))); }
+.hero--full .hero-copy { z-index: 3; grid-area: copy; min-width: 0; padding-block: clamp(32px, 4vw, 64px); }
 .hero--full .hero-copy > p:not(.eyebrow, .hero-location) { max-width: 560px; }
 .hero-visual {
   --architecture-stroke: var(--ink);
   --architecture-fill: var(--surface);
   --architecture-accent: var(--accent);
   position: relative;
+  grid-area: portrait;
   align-self: stretch;
+  min-width: 0;
   min-height: 590px;
+  margin-left: clamp(-72px, -5vw, -44px);
   overflow: hidden;
   border-inline: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
   background: color-mix(in srgb, var(--paper-deep) 68%, transparent);
@@ -420,18 +423,21 @@ h3 { font-size: 23px; font-weight: 600; }
 .hero-media img { width: auto; height: 98%; max-width: 96%; object-fit: contain; object-position: center bottom; }
 
 @media (min-width: 861px) and (max-width: 1050px) {
-  .hero--full { grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr); gap: clamp(34px, 5vw, 58px); padding-block: 46px; }
+  .hero--full { grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr); gap: clamp(18px, 2.8vw, 32px); padding-block: 46px; }
   .hero--full .hero-copy { padding-block: 20px; }
   .hero--full .hero-copy h1 { font-size: clamp(46px, 5.2vw, 56px); }
-  .hero-visual { min-height: 610px; }
+  .hero-visual { min-height: 610px; margin-left: clamp(-48px, -4.5vw, -40px); }
   .architecture-grid { opacity: .035; }
   .architecture-registration { display: none; }
 }
 
 @media (max-width: 860px) {
-  .hero--full { min-height: auto; padding-block: 58px 70px; }
-  .hero--full .hero-copy { width: 100%; max-width: 720px; padding: 0; }
-  .hero-visual { width: min(100%, 620px); min-height: min(78vw, 560px); margin: 16px auto 0; }
+  .hero--full { grid-template-areas: "overlap"; grid-template-columns: 1fr; gap: 0; align-items: start; min-height: auto; padding-block: 32px 70px; }
+  .hero--full:after { position: absolute; z-index: 2; content: ""; inset: 32px auto 70px 0; width: 82%; background: linear-gradient(90deg, color-mix(in srgb, var(--paper) 82%, transparent), color-mix(in srgb, var(--paper) 58%, transparent) 52%, color-mix(in srgb, var(--paper) 8%, transparent) 84%, transparent); pointer-events: none; }
+  .hero--full .hero-copy { position: relative; grid-area: overlap; align-self: start; justify-self: start; width: min(82%, 620px); max-width: none; margin: 0; padding: clamp(62px, 10vw, 90px) 0 40px; }
+  .hero--full .hero-copy:before { display: none; }
+  .hero-visual { grid-area: overlap; align-self: start; justify-self: end; width: min(78%, 620px); height: min(78vw, 560px); min-height: 0; margin: 0; }
+  .hero-visual .hero-media { justify-content: flex-end; }
   .portrait-architecture { inset: 1% 0; height: 98%; }
   .architecture-grid { opacity: .03; }
   .architecture-registration { display: none; }
@@ -439,8 +445,10 @@ h3 { font-size: 23px; font-weight: 600; }
 
 @media (max-width: 620px) {
   .theme-button { display: grid; }
-  .hero--full { gap: 30px; padding-block: 22px 54px; }
-  .hero-visual { order: -1; width: 100%; min-height: clamp(310px, 98vw, 430px); margin: 0; border: 1px solid color-mix(in srgb, var(--line) 72%, transparent); }
+  .hero--full { grid-template-areas: "overlap"; gap: 0; padding-block: 22px 54px; }
+  .hero--full:after { inset-block: 22px 54px; width: 90%; }
+  .hero--full .hero-copy { width: 100%; margin: 0; padding: clamp(92px, 18vw, 108px) 0 30px; }
+  .hero-visual { width: 100%; height: clamp(390px, 112vw, 520px); min-height: 0; margin: 0; border: 1px solid color-mix(in srgb, var(--line) 72%, transparent); }
   .hero-media img { height: 97%; max-width: 92%; }
   .architecture-minor { display: none; }
   .architecture-boundaries { opacity: .14; }
@@ -623,10 +631,10 @@ h3 { font-size: 23px; font-weight: 600; }
 
 @media (max-width: 620px) {
   .hero--full { min-height: auto; padding-block: 22px 54px; }
-  .hero--full:after { background: linear-gradient(90deg, color-mix(in srgb, var(--paper) 99%, transparent) 0%, color-mix(in srgb, var(--paper) 96%, transparent) 68%, color-mix(in srgb, var(--paper) 70%, transparent) 100%); }
-  .hero--full .hero-copy { width: 100%; max-width: none; padding: 0; }
-  .hero--full .hero-copy h1 { max-width: 92%; }
-  .hero--full .hero-copy > p:not(.eyebrow, .hero-location) { max-width: 94%; }
+  .hero--full:after { background: linear-gradient(90deg, color-mix(in srgb, var(--paper) 82%, transparent), color-mix(in srgb, var(--paper) 58%, transparent) 52%, color-mix(in srgb, var(--paper) 8%, transparent) 84%, transparent); }
+  .hero--full .hero-copy { width: 100%; max-width: none; padding: clamp(92px, 18vw, 108px) 0 30px; }
+  .hero--full .hero-copy h1 { max-width: 100%; }
+  .hero--full .hero-copy > p:not(.eyebrow, .hero-location) { max-width: 100%; }
   .hero-media { opacity: 1; }
   .hero-media img { object-position: 61% center; }
   .hero-context { gap: 9px 14px; margin-top: 22px; padding-block: 14px; }
