@@ -39,10 +39,50 @@ export function HeroShowcase({ introduction, displayName, location, email, githu
       <div className="hero-links" aria-label="Professional links"><a href={`mailto:${email}`}>Email</a>{linkedin && <a href={linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}<a href={github} target="_blank" rel="noreferrer">GitHub</a></div>
       <p className="hero-location">Hi, I&apos;m {displayName}. · {location}</p>
     </div>
-    <picture className="hero-media">
-      <img src="/images/hero-editorial.webp" width="1586" height="992" alt={`${displayName} surrounded by system-design diagrams`} fetchPriority="high" decoding="async" />
-    </picture>
+    <div className="hero-visual">
+      <PortraitArchitectureBackground />
+      <picture className="hero-media">
+        <img src="/images/ChatGPT Image Aug 6, 2026, 02_51_55 PM.webp" width="572" height="992" alt={`Portrait of ${displayName}`} fetchPriority="high" decoding="async" />
+      </picture>
+    </div>
   </section>;
+}
+
+export function PortraitArchitectureBackground() {
+  return <svg className="portrait-architecture" viewBox="0 0 640 760" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+    <g className="architecture-boundaries">
+      <rect x="74" y="66" width="474" height="628" />
+      <path d="M36 176V38H374M586 250V722H258" />
+      <rect className="architecture-containment" x="120" y="112" width="438" height="526" />
+    </g>
+    <g className="architecture-grid architecture-minor">
+      <path d="M84 112H196M84 128H196M84 144H196M84 160H196M100 96V176M116 96V176M132 96V176M148 96V176M164 96V176M180 96V176" />
+      <path d="M454 598H566M454 614H566M454 630H566M454 646H566M470 582V662M486 582V662M502 582V662M518 582V662M534 582V662M550 582V662" />
+    </g>
+    <g className="architecture-connectors">
+      <path d="M36 290H142V238H250" />
+      <path d="M486 166H584V306H548" />
+      <path className="architecture-minor" d="M82 530H170V614H276" />
+      <path className="architecture-minor" d="M424 478H570V548" />
+    </g>
+    <g className="architecture-modules">
+      <rect x="38" y="258" width="92" height="64" />
+      <rect className="module-filled" x="452" y="130" width="76" height="58" />
+      <rect x="500" y="286" width="88" height="78" />
+      <rect className="architecture-minor" x="74" y="492" width="96" height="72" />
+      <rect className="module-filled architecture-minor" x="446" y="528" width="72" height="52" />
+    </g>
+    <g className="architecture-nodes">
+      <rect x="126" y="286" width="8" height="8" />
+      <circle className="node-accent" cx="486" cy="166" r="5" />
+      <rect className="node-accent" x="544" y="302" width="9" height="9" />
+      <circle className="architecture-minor" cx="170" cy="614" r="5" />
+    </g>
+    <g className="architecture-registration architecture-minor">
+      <path d="M52 94H72M62 84V104M570 420H590M580 410V430" />
+      <path d="M282 704V718M294 704V718M306 704V718" />
+    </g>
+  </svg>;
 }
 
 export function CopyEmail({ email, location }: { email: string; location: string }) {
