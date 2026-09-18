@@ -41,6 +41,7 @@ function ArticleBlock({ block }: { block: WritingBlock }) {
   if (block.type === "paragraph") return <p><EmphasizedText text={block.text} emphasis={block.emphasis} /></p>;
   if (block.type === "quote") return <blockquote>{block.text}</blockquote>;
   if (block.type === "statement") return <p className="article-key-statement">{block.text}</p>;
+  if (block.type === "bulletList") return <ul className="article-bullet-list">{block.items.map((item) => <li key={item}>{item}</li>)}</ul>;
   if (block.type === "list") return <ul className="article-definition-list">{block.items.map((item) => <li key={item.label}><strong>{item.label}</strong><span>{item.text}</span></li>)}</ul>;
   return <div className="article-sequence" aria-label={block.total}>
     <ol>{block.steps.map((step, index) => <li key={step.label}><span>{step.value}</span><p>{step.label}</p>{index < block.steps.length - 1 && <i aria-hidden="true">→</i>}</li>)}</ol>
